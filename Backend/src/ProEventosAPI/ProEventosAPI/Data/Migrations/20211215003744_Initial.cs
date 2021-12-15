@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ProEventosAPI.Migrations
+namespace ProEventosAPI.Data.Migrations
 {
     public partial class Initial : Migration
     {

@@ -22,5 +22,4 @@ export class EventsComponent implements OnInit {
       error => console.log(error)
     );
   }
-
 }

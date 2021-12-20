@@ -1,6 +1,47 @@
-<h1>Eventos</h1>
+<h2>Eventos</h2>
+<hr>
 
-<div class="container" *ngFor="let event of events">
-  <p><b>Tema: </b>{{event.theme}}</p>
-  <p><b>Local: </b>{{event.local}}</p>
+<div action="" class="form-inline">
+  <div class="form-group mb-2">
+    <label class="label mr-2" for="">Filtro :</label>
+    <input type="text" class="form-control mr-2" placeholder="Buscar" [(ngModel)]="filterList">
+  </div>
 </div>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th><button class="btn btn-outline-light btn-sm" (click)="changeImg()">
+        {{!showImg ? 'exibir' : 'ocultar'}}
+      </button></th>
+      <th>#</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="events && events.length">
+    <tr  *ngFor="let event of eventsFilter">
+      <td>
+        <img [collapse]="showImg" [isAnimated]="true" [style.width.px]="widthImg" [style.margin.px]="marginImg" src="/assets/{{event.imageURL}}" alt="imagem" />
+      </td>
+      <td>{{event.id}}</td>
+      <td>{{event.theme}}</td>
+      <td>{{event.local}}</td>
+      <td>{{event.dateEvent}}</td>
+      <td>{{event.capacity}}</td>
+      <td>{{event.part}}</td>
+      <td>
+        <button class="btn btn-info btn-sm mr-2" disabled="disabled">Editar</button>
+        <button class="btn btn-danger btn-sm" disabled="disabled">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!events.length">
+    <tr>
+      <td colspan="8" class="text-center"><h4>Nenhum evento encontrado.</h4></td>
+    </tr>
+  </tfoot>
+</table>

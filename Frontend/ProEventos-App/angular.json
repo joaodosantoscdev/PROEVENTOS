@@ -31,7 +31,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/jquery/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.js"
             ]
           },
@@ -98,7 +97,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/jquery/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.js"
             ]
           }

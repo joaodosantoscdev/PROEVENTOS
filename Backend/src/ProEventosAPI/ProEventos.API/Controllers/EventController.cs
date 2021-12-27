@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ProEventosAPI.Data;
-using ProEventosAPI.Models;
+using ProEventos.Persistence;
+using ProEventos.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +15,8 @@ namespace ProEventosAPI.Controllers
     {
         // Constructor &  Dependencies
         #region DI Injected
-        private readonly DataContext _context;
-        public EventController(DataContext context)
+        private readonly ProEventosContext _context;
+        public EventController(ProEventosContext context)
         {
             _context = context;
         }

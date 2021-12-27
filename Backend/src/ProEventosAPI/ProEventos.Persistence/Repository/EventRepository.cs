@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain;
+using ProEventos.Persistence.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProEventos.Persistence
+namespace ProEventos.Persistence.Repository
 {
     public class EventRepository : IEventRepository
     {
@@ -19,6 +20,7 @@ namespace ProEventos.Persistence
             _context = context;
         }
         #endregion
+
         // Events
         #region Events Methods - Persistence
         public async Task<Event[]> GetAllEventsByThemeAsync(string theme, bool includeSpeaker = false)

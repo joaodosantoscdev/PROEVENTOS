@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ProEventos.Domain;
 
-namespace ProEventos.Persistence
+namespace ProEventos.Persistence.Repository.Interfaces
 {
-    public interface IProEventosPersistence
+    public interface IGeneralRepository
     {
         // Geral
         void Add<T>(T entity) where T : class;
@@ -15,15 +15,5 @@ namespace ProEventos.Persistence
         void Delete<T>(T entity) where T : class;
         void DeleteRange<T>(T entity) where T : class;
         Task<bool> SaveChangesAsync();
-
-        // Events
-        Task<Event[]> GetAllEventsByThemeAsync(string theme, bool includeSpeaker);
-        Task<Event[]> GetAllEventsAsync(bool includeSpeaker);
-        Task<Event> GetAllEventByIdAsync(int eventId, bool includeSpeaker);
-
-        // Speakers
-        Task<Event[]> GetAllSpeakersByNameAsync(string name, bool includeEvents);
-        Task<Event[]> GetAllSpeakersAsync(bool includeEvents);
-        Task<Event> GetAllSpeakerByIdAsync(int speakerId, bool includeEvents);
     }
 }

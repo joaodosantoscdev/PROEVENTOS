@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProEventos.Domain;
+using ProEventos.Domain.Models;
 using ProEventos.Persistence.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -59,7 +59,7 @@ namespace ProEventos.Persistence.Repository
             return await query.ToArrayAsync();
         }
 
-        public async Task<Event> GetAllEventByIdAsync(int eventId, bool includeSpeaker = false)
+        public async Task<Event> GetEventByIdAsync(int eventId, bool includeSpeaker = false)
         {
             IQueryable<Event> query = _context.Events
                 .Include(e => e.Parts)

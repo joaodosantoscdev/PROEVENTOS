@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProEventos.Domain;
+using ProEventos.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

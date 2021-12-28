@@ -31,7 +31,7 @@ namespace ProEventos.Persistence.Repository
 
             if (includeSpeaker)
             {
-                query = query
+                query = query.AsNoTracking()
                     .Include(e => e.SpeakerEvents)
                     .ThenInclude(e => e.Speaker);
             }
@@ -49,7 +49,7 @@ namespace ProEventos.Persistence.Repository
 
             if (includeSpeaker)
             {
-                query = query
+                query = query.AsNoTracking()
                     .Include(e => e.SpeakerEvents)
                     .ThenInclude(e => e.Speaker);
             }
@@ -67,7 +67,7 @@ namespace ProEventos.Persistence.Repository
 
             if (includeSpeaker)
             {
-                query = query
+                query = query.AsNoTracking()
                     .Include(e => e.SpeakerEvents)
                     .ThenInclude(e => e.Speaker);
             }

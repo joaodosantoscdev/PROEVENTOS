@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProEventos.Domain
+namespace ProEventos.Domain.Models
 {
     public class SpeakerEvent
     {

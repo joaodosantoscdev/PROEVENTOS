@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ProEventos.Domain.Models;
 
-namespace ProEventos.Persistence.Repository.Interfaces
+namespace ProEventos.Application.Services.Interfaces
 {
-    public interface IEventRepository
+    public interface IEventService
     {
-        // Events
+        Task<Event> AddEvents(Event model);
+        Task<Event> UpdateEvent(int eventId, Event model);
+        Task<bool> DeleteEvent(int eventId);
         Task<Event[]> GetAllEventsByThemeAsync(string theme, bool includeSpeaker = false);
         Task<Event[]> GetAllEventsAsync(bool includeSpeaker = false);
-
         Task<Event> GetEventByIdAsync(int eventId, bool includeSpeaker = false);
-    }
+    }   
 }

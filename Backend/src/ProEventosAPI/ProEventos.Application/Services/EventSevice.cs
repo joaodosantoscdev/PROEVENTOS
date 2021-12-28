@@ -6,7 +6,7 @@ using ProEventos.Domain.Models;
 
 namespace ProEventos.Application.Services
 {
-    class EventSevice : IEventService
+    public class EventSevice : IEventService
     {
         // Constructor &  Dependencies
         #region DI Injected 

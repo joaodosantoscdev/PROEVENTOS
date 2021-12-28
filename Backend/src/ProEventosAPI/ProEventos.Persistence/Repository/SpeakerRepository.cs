@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProEventos.Domain;
+using ProEventos.Domain.Models;
 using ProEventos.Persistence.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -30,12 +30,12 @@ namespace ProEventos.Persistence.Repository
 
             if (includeEvents)
             {
-                query = query
+                query = query.AsNoTracking()
                     .Include(p => p.SpeakerEvents)
                     .ThenInclude(pe => pe.Event);
             }
 
-            query = query.OrderBy(p => p.Id).Where(p => p.Name.ToLower().Contains(name.ToLower()));
+            query = query.AsNoTracking().OrderBy(p => p.Id).Where(p => p.Name.ToLower().Contains(name.ToLower()));
 
             return await query.ToArrayAsync();
         }
@@ -47,7 +47,7 @@ namespace ProEventos.Persistence.Repository
 
             if (includeEvents)
             {
-                query = query
+                query = query.AsNoTracking()
                     .Include(p => p.SpeakerEvents)
                     .ThenInclude(pe => pe.Event);
             }
@@ -64,7 +64,7 @@ namespace ProEventos.Persistence.Repository
 
             if (includeEvents)
             {
-                query = query
+                query = query.AsNoTracking()
                     .Include(e => e.SpeakerEvents)
                     .ThenInclude(e => e.Speaker);
             }

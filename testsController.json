@@ -1,0 +1,130 @@
+{
+	"local":"Belo Horizonte",
+	"DataEvento": "2021-02-17T21:40:35.159",
+	"Tema": "Angular",
+	"QtdPessoas": 200,
+	"ImagemUrl": "img1.jpg",
+	"Telefone": "31978456652",
+	"Email": "angular@angular.com.br",
+	"Lotes": [],
+	"RedesSociais": [],
+	"PalestrantesEventos" : []
+}
+//-------------------------------------------------
+{
+	"local":"São Paulo",
+	"DataEvento": "2021-02-17T21:40:35.159",
+	"Tema": "Angular e React",
+	"QtdPessoas": 250,
+	"ImagemUrl": "img2.jpg",
+	"Telefone": "97845655",
+	"Email": "react@react.com",
+	"Lotes": [
+		{
+			"Nome":"1º Lote",
+			"Preco":50.5,
+			"DataInicio": "2021-02-17T21:40:35.159",
+			"DataFim": "2021-02-17T21:40:35.159",
+			"quantidade":100
+		},
+		{
+			"nome":"1º Lote",
+			"preco":50.5,
+			"DataInicio": "2021-02-17T21:40:35.159",
+			"DataFim": "2021-02-17T21:40:35.159",
+			"quantidade":100
+		}
+	],
+	"RedesSociais": [],
+	"PalestrantesEventos" : []
+}
+//--------------------------------------------
+{
+	"local":"Rio de Janeiro",
+	"DataEvento": "#23/1/2019 18:30:52PM#",
+	"Tema": ".NET Core",
+	"QtdPessoas": 350,
+	"ImagemUrl": "img3.jpg",
+	"Telefone": "55669988",
+	"Email": "net@net.com",
+	"Lotes": [
+		{
+			"nome":"1º Lote",
+			"preco":60,
+			"DataInicio": "2021-02-17T21:40:35.159",
+			"DataFim": "2021-02-17T21:40:35.159",
+			"quantidade":100
+		},
+		{
+			"nome":"2º Lote",
+			"preco":70,
+			"DataInicio": "2021-02-17T21:40:35.159",
+			"DataFim": "2021-02-17T21:40:35.159",
+			"quantidade":100
+		},
+		{
+			"nome":"3º Lote",
+			"preco":80,
+			"DataInicio": "2021-02-17T21:40:35.159",
+			"DataFim": "2021-02-17T21:40:35.159",
+			"quantidade":150
+		}
+	],
+	"RedesSociais": [
+		{
+			"nome": "Facebook",
+			"url": "http://facebook.com/blablabla"
+		},
+		{
+			"nome": "Twitter",
+			"url": "http://twitter.com/blebleble"
+		},
+		{
+			"nome": "instagram",
+			"url": "http://instagram.com/blobloblo"
+		}
+	],
+	"PalestrantesEventos" : [
+
+	]
+}
+//--------------------------------------------
+
+{
+    "local": "São Paulo",
+    "dataEvento": "2021-02-17T23:21:36.698",
+    "tema": "Angular 11 e suas novidades",
+    "qtdPessoas": 350,
+    "imagemURL": "foto2.png",
+    "telefone": "3214564887",
+    "email": "angularbh@angular.com",
+    "lotes": [
+      {
+ 
+        "nome": "1º Lote",
+        "preco": 50,
+        "dataInicio": "2021-02-17T23:32:42.372",
+        "dataFim": "2021-02-17T23:32:42.372",
+        "quantidade": 150,
+
+      },
+      {
+        "nome": "2º Lote",
+        "preco": 150.25,
+        "dataInicio": "2021-02-17T23:32:42.372",
+        "dataFim": "2021-02-17T23:32:42.372",
+        "quantidade": 200,
+ 
+      }
+    ],
+    "redesSociais": [
+    {
+      "nome": "facebook",
+      "url": "http://facebook.com/programadamente",
+    },
+    {
+      "nome": "facebook",
+      "url": "http://facebook.com/SPAngular",
+    }],
+    "palestrantesEventos": []
+  }

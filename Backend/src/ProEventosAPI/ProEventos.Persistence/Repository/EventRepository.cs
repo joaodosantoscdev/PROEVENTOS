@@ -31,12 +31,12 @@ namespace ProEventos.Persistence.Repository
 
             if (includeSpeaker)
             {
-                query = query.AsNoTracking()
+                query = query
                     .Include(e => e.SpeakerEvents)
                     .ThenInclude(e => e.Speaker);
             }
 
-            query = query.OrderBy(e => e.Id).Where(e => e.Theme.ToLower().Contains(theme.ToLower()));
+            query = query.AsNoTracking().OrderBy(e => e.Id).Where(e => e.Theme.ToLower().Contains(theme.ToLower()));
 
             return await query.ToArrayAsync();
         }
@@ -49,12 +49,12 @@ namespace ProEventos.Persistence.Repository
 
             if (includeSpeaker)
             {
-                query = query.AsNoTracking()
+                query = query
                     .Include(e => e.SpeakerEvents)
                     .ThenInclude(e => e.Speaker);
             }
 
-            query = query.OrderBy(e => e.Id);
+            query = query.AsNoTracking().OrderBy(e => e.Id);
 
             return await query.ToArrayAsync();
         }
@@ -67,12 +67,13 @@ namespace ProEventos.Persistence.Repository
 
             if (includeSpeaker)
             {
-                query = query.AsNoTracking()
+                query = query
                     .Include(e => e.SpeakerEvents)
                     .ThenInclude(e => e.Speaker);
             }
 
-            query = query.OrderBy(e => e.Id == eventId);
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                .Where(e => e.Id == eventId);
 
             return await query.FirstOrDefaultAsync();
         }

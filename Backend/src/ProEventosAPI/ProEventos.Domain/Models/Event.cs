@@ -14,7 +14,7 @@ namespace ProEventos.Domain.Models
         public int Capacity { get; set; }
         public string ImageURL { get; set; }
         public string CallNumber { get; set; }
-        public int Email { get; set; }
+        public string Email { get; set; }
         public IEnumerable<Part> Parts { get; set; }
         public IEnumerable<SocialMedia> SocialMedias { get; set; }
         public IEnumerable<SpeakerEvent> SpeakerEvents { get; set; }

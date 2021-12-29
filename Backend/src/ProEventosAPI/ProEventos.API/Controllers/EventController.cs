@@ -47,7 +47,7 @@ namespace ProEventosAPI.Controllers
         {
             try
             {
-                var _event = await _eventService.GetEventByIdAsync(id);
+                var _event = await _eventService.GetEventByIdAsync(id, true);
                 if (_event == null) return NotFound("Evento não encontrado.");
 
                 return Ok(_event);

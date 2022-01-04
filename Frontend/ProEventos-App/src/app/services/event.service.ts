@@ -1,14 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
+
 export class EventService {
-  baseUrl = 'https://localhost:44388/api/Event'
+  baseUrl = 'https://localhost:44388/api/Event';
   constructor(private http: HttpClient) { }
 
-  getEvents() {
-    return this.http.get(this.baseUrl);
+  public getEvents(): Observable<Event[]> {
+    return this.http.get<Event[]>(this.baseUrl);
+  }
+
+  public getEventsByTheme(theme: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.baseUrl}/theme/${theme}`);
+  }
+
+  public getEventById(id: number): Observable<Event> {
+    return this.http.get<Event>(`${this.baseUrl}/${id}`);
   }
 }

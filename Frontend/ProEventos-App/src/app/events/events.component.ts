@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from './../services/event.service';
 
+
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
@@ -8,11 +9,11 @@ import { EventService } from './../services/event.service';
 })
 export class EventsComponent implements OnInit {
 
-  public events: any = [];
-  public eventsFilter: any = [];
-  widthImg = 100;
-  marginImg = 2;
-  showImg = true;
+  public events: Event[] = [];
+  public eventsFilter: Event[] = [];
+  public widthImg = 100;
+  public marginImg = 2;
+  public showImg = true;
   private FilterList = '';
 
   public get filterList(): string {
@@ -24,7 +25,7 @@ export class EventsComponent implements OnInit {
     this.eventsFilter = this.FilterList ? this.filterEvents(this.FilterList) : this.events;
   }
 
-  filterEvents(filter: string): any {
+  public filterEvents(filter: string): Event[] {
     filter = filter.toLocaleLowerCase();
     return this.events.filter(
       (event: any) => event.theme.toLocaleLowerCase().indexOf(filter) !== - 1 ||
@@ -38,13 +39,13 @@ export class EventsComponent implements OnInit {
     this.getEvents();
   }
 
-  changeImg(): void {
+  public changeImg(): void {
     this.showImg = !this.showImg;
   }
 
   public getEvents(): void {
     this.eventService.getEvents().subscribe(
-      response => {
+      (response: Event[]) => {
         this.events = response;
         this.eventsFilter = this.events;
       },

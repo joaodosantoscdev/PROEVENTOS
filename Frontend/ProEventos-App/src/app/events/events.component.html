@@ -11,6 +11,7 @@
   <thead class="thead-dark">
     <tr>
       <th><button class="btn btn-outline-light btn-sm" (click)="changeImg()">
+        <i class="{{showImg ? 'fa fa-eye' : 'fa fa-eye-slash'}}" ></i>
         {{!showImg ? 'ocultar' : 'exibir'}}
       </button></th>
       <th>#</th>
@@ -30,12 +31,17 @@
       <td>{{event.id}}</td>
       <td>{{event.theme}}</td>
       <td>{{event.local}}</td>
-      <td>{{event.dateEvent}}</td>
+      <td>{{event.dateEvent | DateFormat }}</td>
       <td>{{event.capacity}}</td>
-      <td>{{event.part}}</td>
+      <td>{{event.parts[0].name | uppercase }}</td>
       <td>
-        <button class="btn btn-info btn-sm mr-2" disabled="disabled">Editar</button>
-        <button class="btn btn-danger btn-sm" disabled="disabled">Excluir</button>
+        <button class="btn btn-info btn-sm mr-2" disabled="disabled">
+          <i class="fa fa-edit"></i>
+          Editar
+        </button>
+        <button class="btn btn-danger btn-sm" disabled="disabled">
+          <i class="fa fa-trash"></i>
+          Excluir</button>
       </td>
     </tr>
   </tbody>

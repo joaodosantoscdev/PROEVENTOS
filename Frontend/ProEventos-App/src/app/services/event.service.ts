@@ -8,7 +8,7 @@ export class EventService {
   baseUrl = 'https://localhost:44388/api/Event'
   constructor(private http: HttpClient) { }
 
-  getEvent() {
+  getEvents() {
     return this.http.get(this.baseUrl);
   }
 }

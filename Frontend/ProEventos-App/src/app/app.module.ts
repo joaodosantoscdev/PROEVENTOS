@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { CommonModule } from '@angular/common';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -15,10 +14,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
-import { EventsComponent } from './events/events.component';
-import { SpeakersComponent } from './speakers/speakers.component';
+import { EventsComponent } from './components/events/events.component';
+import { SpeakersComponent } from './components/speakers/speakers.component';
 import { NavComponent } from './nav/nav.component';
-
+import { TitleComponent } from './shared/title/title.component';
+import { ContactComponent } from './components/contacts/contact.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 import { EventService } from './services/event.service';
 
@@ -31,6 +33,10 @@ import { DateFormatPipe } from './helpers/DateFormat.pipe';
     EventsComponent,
     SpeakersComponent,
     NavComponent,
+    TitleComponent,
+    ContactComponent,
+    DashboardComponent,
+    ProfileComponent,
     DateFormatPipe,
   ],
   imports: [

@@ -1,22 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand ml-5" href="#">Pro Eventos</a>
+  <a class="navbar-brand ml-5" routerLink='dashboard'>Pro Eventos</a>
   <button class="navbar-toggler" (click)="isCollapsed = !isCollapsed" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarNavAltMarkup">
     <div class="navbar-nav mr-auto">
-      <a class="nav-link active" href="#">Eventos <span class="sr-only">(current)</span></a>
-      <a class="nav-link" href="#">Palestrantes</a>
-      <a class="nav-link" href="#">Contatos</a>
+      <a class="nav-link" routerLink='events' routerLinkActive="active">Eventos</a>
+      <a class="nav-link" routerLink='speakers' routerLinkActive="active">Palestrantes</a>
+      <a class="nav-link" routerLink='contacts' routerLinkActive="active">Contatos</a>
     </div>
     <ul class="navbar-nav mr-5">
       <li class="nav-item dropdown" dropdown>
-        <a dropdownToggle class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+        <a dropdownToggle class="nav-link dropdown-toggle" style="cursor: pointer;" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           User
         </a>
         <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">
+          <a class="dropdown-item" routerLink="profile">
             Perfil
           </a>
           <div role="separator" class="divider"></div>

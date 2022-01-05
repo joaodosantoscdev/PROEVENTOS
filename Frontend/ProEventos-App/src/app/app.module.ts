@@ -16,7 +16,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppComponent } from './app.component';
 import { EventsComponent } from './components/events/events.component';
 import { SpeakersComponent } from './components/speakers/speakers.component';
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './shared/nav/nav.component';
 import { TitleComponent } from './shared/title/title.component';
 import { ContactComponent } from './components/contacts/contact.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';

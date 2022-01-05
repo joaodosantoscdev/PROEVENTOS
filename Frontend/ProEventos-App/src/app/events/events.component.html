@@ -39,9 +39,10 @@
           <i class="fa fa-edit"></i>
           Editar
         </button>
-        <button class="btn btn-danger btn-sm" disabled="disabled" tooltip="Excluir">
+        <button class="btn btn-danger btn-sm" disabled="disabled" tooltip="Excluir" (click)="openModal(template)">
           <i class="fa fa-trash"></i>
-          Excluir</button>
+          Excluir
+        </button>
       </td>
     </tr>
   </tbody>
@@ -51,3 +52,14 @@
     </tr>
   </tfoot>
 </table>
+
+<!-- {{ events | json }} -->
+
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja deletar esse evento ?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+  </div>
+</ng-template>

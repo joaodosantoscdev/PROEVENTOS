@@ -1,6 +1,6 @@
-import { Part } from "./Part";
-import { SocialMedia } from "./SocialMedia";
-import { Speaker } from "./Speaker";
+import { Part } from './Part';
+import { SocialMedia } from './SocialMedia';
+import { Speaker } from './Speaker';
 
 export interface Event {
  id: number;

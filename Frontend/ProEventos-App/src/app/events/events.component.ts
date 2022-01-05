@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EventService } from './../services/event.service';
 
 
@@ -8,7 +9,7 @@ import { EventService } from './../services/event.service';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-
+  modalRef?: BsModalRef;
   public events: Event[] = [];
   public eventsFilter: Event[] = [];
   public widthImg = 100;
@@ -33,7 +34,10 @@ export class EventsComponent implements OnInit {
     );
   }
 
-  constructor(private eventService: EventService) { }
+  constructor(
+    private eventService: EventService,
+    private modalService: BsModalService
+    ) {}
 
   ngOnInit(): void {
     this.getEvents();
@@ -51,5 +55,17 @@ export class EventsComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+
+  openModal(template: TemplateRef<any>) : void  {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirm(): void {
+    this.modalRef?.hide();
+  }
+
+  decline(): void {
+    this.modalRef?.hide();
   }
 }

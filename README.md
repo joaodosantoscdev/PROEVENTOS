@@ -1,4 +1,4 @@
-## PROEVENTOS - Application developed using the stack .Net 5 and Angular 10 ##
+## PROEVENTOS - Application developed using the stack .Net 5 and Angular 11 ##
 <hr>
 <h3>IN DEVELOPMENT</h3>
 <hr>

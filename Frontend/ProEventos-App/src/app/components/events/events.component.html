@@ -1,65 +1,6 @@
-<app-title [title]="'Eventos'" [iconClass]="'fa fa-calendar-alt'" [subtitle]="'Veja aqui os eventos que irão acontecer'" [btnList]="true"></app-title>
+<app-title [routerRef]="'events'" [title]="'Eventos'" [iconClass]="'fa fa-calendar-alt'" [subtitle]="'Veja aqui os eventos que irão acontecer'" [btnList]="true"></app-title>
 <hr>
 
-<div action="" class="form-inline">
-  <div class="form-group mb-2">
-    <label class="label mr-2" for="">Filtro :</label>
-    <input type="text" class="form-control mr-2" placeholder="Buscar" [(ngModel)]="filterList" />
-  </div>
-</div>
-<table class="table table-striped">
-  <thead class="thead-dark">
-    <tr>
-      <th><button class="btn btn-outline-light btn-sm" (click)="changeImg()">
-        <i class="{{showImg ? 'fa fa-eye' : 'fa fa-eye-slash'}}" ></i>
-        {{!showImg ? 'ocultar' : 'exibir'}}
-      </button></th>
-      <th>#</th>
-      <th>Tema</th>
-      <th>Local</th>
-      <th>Data</th>
-      <th>Qtd Pessoas</th>
-      <th>Lote</th>
-      <th>Opções</th>
-    </tr>
-  </thead>
-  <tbody *ngIf="events && events.length">
-    <tr  *ngFor="let event of eventsFilter">
-      <td>
-        <img [collapse]="showImg" [isAnimated]="true" [style.width.px]="widthImg" [style.margin.px]="marginImg" src="/assets/{{event.imageURL}}" alt="imagem" />
-      </td>
-      <td>{{event.id}}</td>
-      <td>{{event.theme}}</td>
-      <td>{{event.local}}</td>
-      <td>{{event.dateEvent | DateFormat }}</td>
-      <td>{{event.capacity}}</td>
-      <td>{{event.parts[0].name | uppercase }}</td>
-      <td>
-        <button class="btn btn-info btn-sm mr-2" disabled="disabled" tooltip="Editar">
-          <i class="fa fa-edit"></i>
-          Editar
-        </button>
-        <button class="btn btn-danger btn-sm"  tooltip="Excluir" (click)="openModal(template)">
-          <i class="fa fa-trash"></i>
-          Excluir
-        </button>
-      </td>
-    </tr>
-  </tbody>
-  <tfoot *ngIf="!events.length">
-    <tr>
-      <td colspan="8" class="text-center"><h4>Nenhum evento encontrado.</h4></td>
-    </tr>
-  </tfoot>
-</table>
-
-<!-- {{ events | json }} -->
+<router-outlet></router-outlet>
 
 
-<ng-template #template>
-  <div class="modal-body text-center">
-    <p>Tem certeza que deseja deletar esse evento ?</p>
-    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
-    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
-  </div>
-</ng-template>

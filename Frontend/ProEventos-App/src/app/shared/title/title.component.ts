@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-title',
@@ -10,10 +11,14 @@ export class TitleComponent implements OnInit {
  @Input() iconClass = 'fa fa-user';
  @Input() subtitle = 'A melhor plataforma de eventos';
  @Input() btnList = false;
+ @Input() routerRef: string;
 
-  constructor() { }
+  constructor( private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  listEvents(): void {
+    this.router.navigate([`/${this.routerRef}/list`]);
+  }
 }

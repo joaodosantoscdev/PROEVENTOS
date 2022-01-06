@@ -8,8 +8,9 @@
     </div>
   </div>
   <div class="p-3" *ngIf="btnList">
-      <button class="btn btn-outline-light">
+      <button class="btn btn-outline-light" (click)="listEvents()">
         Listar {{title}}
       </button>
   </div>
 </div>
+<p class="d-none">{{routerRef}}</p>

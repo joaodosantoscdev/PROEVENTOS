@@ -21,6 +21,8 @@ import { TitleComponent } from './shared/title/title.component';
 import { ContactComponent } from './components/contacts/contact.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { EventListComponent } from './components/events/event-list/event-list.component';
+import { EventDetailsComponent } from './components/events/event-details/event-details.component';
 
 import { EventService } from './services/event.service';
 
@@ -37,6 +39,8 @@ import { DateFormatPipe } from './helpers/DateFormat.pipe';
     ContactComponent,
     DashboardComponent,
     ProfileComponent,
+    EventListComponent,
+    EventDetailsComponent,
     DateFormatPipe,
   ],
   imports: [

@@ -5,13 +5,13 @@
   </button>
   <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarNavAltMarkup">
     <div class="navbar-nav mr-auto">
-      <a class="nav-link" routerLink='events' routerLinkActive="active">Eventos</a>
-      <a class="nav-link" routerLink='speakers' routerLinkActive="active">Palestrantes</a>
-      <a class="nav-link" routerLink='contacts' routerLinkActive="active">Contatos</a>
+      <a class="nav-link text-secondary" routerLink='events/list' routerLinkActive="active">Eventos</a>
+      <a class="nav-link text-secondary" routerLink='speakers' routerLinkActive="active">Palestrantes</a>
+      <a class="nav-link text-secondary" routerLink='contacts' routerLinkActive="active">Contatos</a>
     </div>
     <ul class="navbar-nav mr-5">
-      <li class="nav-item dropdown" dropdown>
-        <a dropdownToggle class="nav-link dropdown-toggle" style="cursor: pointer;" id="navbarDropdownMenuLink" data-toggle="dropdown"
+      <li class="nav-item dropdown dropdown-menu-left" dropdown>
+        <a dropdownToggle class="nav-link dropdown-toggle text-secondary" style="cursor: pointer;" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           User
         </a>

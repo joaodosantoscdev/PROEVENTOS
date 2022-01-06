@@ -20,28 +20,34 @@ import { NavComponent } from './shared/nav/nav.component';
 import { TitleComponent } from './shared/title/title.component';
 import { ContactComponent } from './components/contacts/contact.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 import { EventListComponent } from './components/events/event-list/event-list.component';
 import { EventDetailsComponent } from './components/events/event-details/event-details.component';
 
 import { EventService } from './services/event.service';
 
 import { DateFormatPipe } from './helpers/DateFormat.pipe';
+import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     EventsComponent,
+    EventListComponent,
+    EventDetailsComponent,
     SpeakersComponent,
     NavComponent,
     TitleComponent,
     ContactComponent,
     DashboardComponent,
     ProfileComponent,
-    EventListComponent,
-    EventDetailsComponent,
     DateFormatPipe,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,

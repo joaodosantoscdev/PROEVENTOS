@@ -10,6 +10,8 @@ using ProEventos.Application.Services.Interfaces;
 using ProEventos.Persistence;
 using ProEventos.Persistence.Repository;
 using ProEventos.Persistence.Repository.Interfaces;
+using AutoMapper;
+using System;
 
 namespace ProEventosAPI
 {
@@ -30,10 +32,12 @@ namespace ProEventosAPI
             services.AddControllers()
                 .AddNewtonsoftJson(cfg => cfg.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<IEventService, EventSevice>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IGeneralRepository, GeneralRepository>();
-
+            
             services.AddCors();
 
             services.AddSwaggerGen(c =>

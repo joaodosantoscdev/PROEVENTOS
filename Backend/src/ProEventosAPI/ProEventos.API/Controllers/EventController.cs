@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using ProEventos.Persistence;
-using ProEventos.Domain.Models;
 using ProEventos.Application.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using ProEventos.Application.DTO;
 
 namespace ProEventosAPI.Controllers
 {
@@ -32,7 +28,7 @@ namespace ProEventosAPI.Controllers
             try
             {
                 var _events = await _eventService.GetAllEventsAsync(true);
-                if (_events == null) return NotFound("Nenhum evento encontrado!");
+                if (_events == null) return NoContent();
 
                 return Ok(_events);
             }
@@ -48,7 +44,7 @@ namespace ProEventosAPI.Controllers
             try
             {
                 var _event = await _eventService.GetEventByIdAsync(id, true);
-                if (_event == null) return NotFound("Evento não encontrado.");
+                if (_event == null) return NoContent();
 
                 return Ok(_event);
             }
@@ -64,7 +60,7 @@ namespace ProEventosAPI.Controllers
             try
             {
                 var _event = await _eventService.GetAllEventsByThemeAsync(theme);
-                if (_event == null) return NotFound("Pesquisa por tema não encontrou nenhum evento(s).");
+                if (_event == null) return NoContent();
 
                 return Ok(_event);
             }
@@ -78,12 +74,12 @@ namespace ProEventosAPI.Controllers
         // ADD - Events
         #region POST Methods - Controller
         [HttpPost("")]
-        public async Task<IActionResult> Add(Event model)
+        public async Task<IActionResult> Add(EventDTO model)
         {
             try
             {
                 var _event = await _eventService.AddEvents(model);
-                if (_event == null) return BadRequest("Erro ao tentar adicionar evento(s).");
+                if (_event == null) return NoContent();
 
                 return Ok(_event);
             }
@@ -97,12 +93,12 @@ namespace ProEventosAPI.Controllers
         //UPDATE - Events
         #region UPDATE Methods - Controller
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Event model)
+        public async Task<IActionResult> Put(int id, EventDTO model)
         {
             try
             {
                 var _event = await _eventService.UpdateEvent(id, model);
-                if (_event == null) return BadRequest("Erro ao tentar atualizar evento.");
+                if (_event == null) return NoContent();
 
                 return Ok(_event);
             }

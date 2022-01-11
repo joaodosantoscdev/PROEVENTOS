@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+import { Event } from '@app/models/Event';
+import { EventService } from '@app/services/event.service';
+
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-event-details',
@@ -8,15 +16,57 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class EventDetailsComponent implements OnInit {
 
+  event = {} as Event;
   form: FormGroup;
+  state = 'post';
 
   get f(): any {
     return this.form.controls;
   }
 
-  constructor(private fb: FormBuilder) { }
+  get bsConfig(): any {
+    return {
+      adaptivePosition: true,
+      dateInputFormat: 'DD/MM/YYYY HH:mm',
+      isAnimated: true,
+      containerClass: 'theme-dark-blue',
+      showWeekNumbers: false
+    };
+  }
+
+  constructor(private fb: FormBuilder,
+              private localeService: BsLocaleService,
+              private router: ActivatedRoute,
+              private eventService: EventService,
+              private spinner: NgxSpinnerService,
+              private toastr: ToastrService)
+    {
+      this.localeService.use('pt-br');
+    }
+
+  loadEvent(): void {
+    const eventIdParam = this.router.snapshot.paramMap.get('id');
+
+
+    if (eventIdParam !== null) {
+      this.spinner.show();
+      this.state = 'put';
+
+      this.eventService.getEventById(+eventIdParam).subscribe(
+        (event: Event) => {
+          this.event = {...event};
+          this.form.patchValue(this.event);
+        },
+        (error: any) => {
+          this.toastr.error('Erro ao tentar carregar o evento', 'Erro!');
+          console.error(error);
+        }
+      ).add(() => this.spinner.hide());
+    }
+  }
 
   ngOnInit(): void {
+    this.loadEvent();
     this.validation();
   }
 
@@ -36,4 +86,27 @@ export class EventDetailsComponent implements OnInit {
     this.form.reset();
   }
 
+  public cssValidator(formRule: FormControl): any {
+    return { 'is-invalid': formRule.errors && formRule.touched };
+  }
+
+  public saveEvent(): void {
+    this.spinner.show();
+    if (this.form.valid) {
+      this.event = ( this.state === 'post')
+        ? {...this.form.value}
+        : { id: this.event.id, ...this.form.value };
+
+      this.eventService[this.state](this.event).subscribe(
+        () => {
+          this.toastr.success('Evento criado com sucesso', 'Criado!');
+      },
+        (error: any) => {
+          this.toastr.error('Erro ao tentar criar o evento', 'Erro!');
+          console.error(error);
+        }
+
+      ).add(() => this.spinner.hide());
+    }
+  }
 }

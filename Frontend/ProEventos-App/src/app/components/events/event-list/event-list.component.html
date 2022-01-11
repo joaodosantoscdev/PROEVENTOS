@@ -45,7 +45,7 @@
         <td class="d-none d-md-table-cell">{{event.local}}</td>
         <td>{{event.dateEvent | DateFormat }}</td>
         <td class="d-none d-md-table-cell">{{event.capacity}}</td>
-        <td class="d-none d-md-table-cell">{{event.parts[0].name | uppercase }}</td>
+        <td class="d-none d-md-table-cell">{{event.parts[0]?.name | uppercase }}</td>
         <td>
           <div class="d-flex">
             <button class="btn btn-info btn-md mr-2" tooltip="Editar">
@@ -54,7 +54,7 @@
                 <b class="d-none d-sm-block">Editar</b>
               </div>
             </button>
-            <button class="btn btn-danger btn-md"  tooltip="Excluir" (click)="openModal(template)">
+            <button class="btn btn-danger btn-md"  tooltip="Excluir" (click)="openModal($event, template, event.id)">
               <div class="d-flex">
                 <i class="fa fa-trash my-1 mr-lg-1"></i>
                 <b class="d-none d-sm-block">Excluir</b>
@@ -74,10 +74,9 @@
 
 <!-- {{ events | json }} -->
 
-
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Tem certeza que deseja deletar esse evento ?</p>
+    <p>Tem certeza que deseja deletar o evento {{this.eventId}} ?</p>
     <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
     <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
   </div>

@@ -12,8 +12,9 @@ namespace ProEventos.Application.DTO
         [Required(ErrorMessage = "O campo {0} é obrigatório."),
         StringLength(60, MinimumLength = 3, ErrorMessage = "{0} deve ter entre, 4 e 60 caractéres")]
         public string Local { get; set; }
-        [Required(ErrorMessage = "O campo {0} é obrigatório."),
-        DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public string DateEvent { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório."),

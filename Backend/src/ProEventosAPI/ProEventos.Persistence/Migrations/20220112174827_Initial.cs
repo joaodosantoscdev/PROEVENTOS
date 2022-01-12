@@ -19,7 +19,7 @@ namespace ProEventos.Persistence.Migrations
                     Capacity = table.Column<int>(type: "INTEGER", nullable: false),
                     ImageURL = table.Column<string>(type: "TEXT", nullable: true),
                     CallNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<int>(type: "INTEGER", nullable: false)
+                    Email = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,13 +86,13 @@ namespace ProEventos.Persistence.Migrations
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SocialMedias_Speakers_SpeakerId",
                         column: x => x.SpeakerId,
                         principalTable: "Speakers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

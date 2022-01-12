@@ -1,8 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+
 import { Event } from 'src/app/models/Event';
 import { EventService } from 'src/app/services/event.service';
 
@@ -45,7 +48,7 @@ export class EventListComponent implements OnInit {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private router: Router,
-    ) {}
+    ) {  }
 
   ngOnInit(): void {
     this.spinner.show();

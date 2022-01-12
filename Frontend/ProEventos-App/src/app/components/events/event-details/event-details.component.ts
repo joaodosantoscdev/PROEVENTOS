@@ -27,7 +27,7 @@ export class EventDetailsComponent implements OnInit {
   get bsConfig(): any {
     return {
       adaptivePosition: true,
-      dateInputFormat: 'DD/MM/YYYY HH:mm',
+      dateInputFormat: 'DD/MM/YYYY hh:mm A',
       isAnimated: true,
       containerClass: 'theme-dark-blue',
       showWeekNumbers: false
@@ -47,11 +47,9 @@ export class EventDetailsComponent implements OnInit {
   loadEvent(): void {
     const eventIdParam = this.router.snapshot.paramMap.get('id');
 
-
     if (eventIdParam !== null) {
       this.spinner.show();
       this.state = 'put';
-
       this.eventService.getEventById(+eventIdParam).subscribe(
         (event: Event) => {
           this.event = {...event};
@@ -96,13 +94,13 @@ export class EventDetailsComponent implements OnInit {
       this.event = ( this.state === 'post')
         ? {...this.form.value}
         : { id: this.event.id, ...this.form.value };
-
       this.eventService[this.state](this.event).subscribe(
         () => {
-          this.toastr.success('Evento criado com sucesso', 'Criado!');
+          this.loadEvent();
+          this.toastr.success(`Evento ${this.event.id ? 'atualizado' : 'criado' } com sucesso`, 'Ok!');
       },
         (error: any) => {
-          this.toastr.error('Erro ao tentar criar o evento', 'Erro!');
+          this.toastr.error(`Erro ao tentar ${this.event.id ? 'atualizar' : 'criar' } o evento`, 'Erro!');
           console.error(error);
         }
 

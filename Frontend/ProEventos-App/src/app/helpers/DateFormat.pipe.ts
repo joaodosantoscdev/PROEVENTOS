@@ -6,9 +6,7 @@ import { Constants } from './../utility/constants';
   name: 'DateFormat'
 })
 export class DateFormatPipe extends DatePipe implements PipeTransform {
-
   transform(value: any, args?: any): any {
-    return super.transform(value, Constants.DATE_TIME_FMT );
+    return super.transform(value, Constants.DATE_TIME_FMT);
   }
-
 }

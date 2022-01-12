@@ -41,7 +41,7 @@
           class="form-control is-invalid"
           formControlName="dateEvent"
           placeholder="dd/MM/aa - HH:mm"
-          value="{{ event.dateEvent | DateFormat }}"
+          value="{{ event.dateEvent | date : 'dd/MM/yyyy hh:mm a':'-3000' }}"
           [ngClass]="cssValidator(f.dateEvent)"
           bsDatepicker
           [bsConfig]="bsConfig">

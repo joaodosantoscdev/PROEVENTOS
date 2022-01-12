@@ -43,7 +43,7 @@
         <td>{{event.id}}</td>
         <td>{{event.theme}}</td>
         <td class="d-none d-md-table-cell">{{event.local}}</td>
-        <td>{{event.dateEvent | DateFormat }}</td>
+        <td>{{ event.dateEvent | date : 'dd/MM/yyyy hh:mm a':'-3000' }}</td>
         <td class="d-none d-md-table-cell">{{event.capacity}}</td>
         <td class="d-none d-md-table-cell">{{event.parts[0]?.name | uppercase }}</td>
         <td>

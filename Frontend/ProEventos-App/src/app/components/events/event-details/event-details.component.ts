@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Event } from '@app/models/Event';
+import { Part } from '@app/models/Part';
 import { EventService } from '@app/services/event.service';
 
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -20,6 +21,14 @@ export class EventDetailsComponent implements OnInit {
   form: FormGroup;
   state = 'post';
 
+  get editMode(): boolean {
+    return this.state === 'put';
+  }
+
+  get parts(): FormArray {
+    return this.form.get('parts') as FormArray;
+  }
+
   get f(): any {
     return this.form.controls;
   }
@@ -36,7 +45,8 @@ export class EventDetailsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private localeService: BsLocaleService,
-              private router: ActivatedRoute,
+              private activatedRouter: ActivatedRoute,
+              private router: Router,
               private eventService: EventService,
               private spinner: NgxSpinnerService,
               private toastr: ToastrService)
@@ -45,7 +55,7 @@ export class EventDetailsComponent implements OnInit {
     }
 
   loadEvent(): void {
-    const eventIdParam = this.router.snapshot.paramMap.get('id');
+    const eventIdParam = this.activatedRouter.snapshot.paramMap.get('id');
 
     if (eventIdParam !== null) {
       this.spinner.show();
@@ -77,6 +87,22 @@ export class EventDetailsComponent implements OnInit {
       callNumber: ['', Validators.required],
       email: ['', [Validators.required, Validators.email ]],
       imageURL: ['', Validators.required],
+      parts: this.fb.array([])
+    });
+  }
+
+  addPart(): void {
+    this.parts.push(this.createPart({id: 0}as Part));
+  }
+
+  createPart(part: Part): FormGroup {
+    return this.fb.group({
+      id: [part.id],
+      name: [part.name, Validators.required],
+      price: [part.price, Validators.required],
+      quantity: [part.quantity, Validators.required],
+      dateInitial: [part.dateInitial],
+      dateEnd: [part.dateEnd],
     });
   }
 
@@ -84,7 +110,7 @@ export class EventDetailsComponent implements OnInit {
     this.form.reset();
   }
 
-  public cssValidator(formRule: FormControl): any {
+  public cssValidator(formRule: FormControl | AbstractControl): any {
     return { 'is-invalid': formRule.errors && formRule.touched };
   }
 
@@ -95,8 +121,9 @@ export class EventDetailsComponent implements OnInit {
         ? {...this.form.value}
         : { id: this.event.id, ...this.form.value };
       this.eventService[this.state](this.event).subscribe(
-        () => {
+        (eventReturn: Event) => {
           this.loadEvent();
+          this.router.navigate([`events/details/${eventReturn.id}`]);
           this.toastr.success(`Evento ${this.event.id ? 'atualizado' : 'criado' } com sucesso`, 'Ok!');
       },
         (error: any) => {

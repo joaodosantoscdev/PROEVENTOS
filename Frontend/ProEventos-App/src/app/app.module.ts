@@ -29,6 +29,7 @@ import { EventListComponent } from './components/events/event-list/event-list.co
 import { EventDetailsComponent } from './components/events/event-details/event-details.component';
 
 import { EventService } from './services/event.service';
+import { PartService } from './services/part.service';
 
 import { DateFormatPipe } from './helpers/DateFormat.pipe';
 import { UserComponent } from './components/user/user.component';
@@ -76,7 +77,8 @@ defineLocale('pt-br', ptBrLocale);
     FormsModule
   ],
   providers: [
-    EventService
+    EventService,
+    PartService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

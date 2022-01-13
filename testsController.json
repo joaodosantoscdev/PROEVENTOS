@@ -13,30 +13,30 @@
 //-------------------------------------------------
 {
 	"local":"São Paulo",
-	"DataEvento": "2021-02-17T21:40:35.159",
-	"Tema": "Angular e React",
-	"QtdPessoas": 250,
-	"ImagemUrl": "img2.jpg",
-	"Telefone": "97845655",
-	"Email": "react@react.com",
-	"Lotes": [
+	"DateEvent": "2021-02-17T21:40:35.159",
+	"Theme": "Angular e React",
+	"Capacity": 250,
+	"imageURL": "img2.jpg",
+	"Callnumber": "97845655",
+	"email": "react@react.com",
+	"Parts": [
 		{
-			"Nome":"1º Lote",
-			"Preco":50.5,
-			"DataInicio": "2021-02-17T21:40:35.159",
-			"DataFim": "2021-02-17T21:40:35.159",
-			"quantidade":100
+			"Name":"1º Lote",
+			"Price":50.5,
+			"DateInitial": "2021-02-17T21:40:35.159",
+			"DateEnd": "2021-02-17T21:40:35.159",
+			"quantity":100
 		},
 		{
-			"nome":"1º Lote",
-			"preco":50.5,
-			"DataInicio": "2021-02-17T21:40:35.159",
-			"DataFim": "2021-02-17T21:40:35.159",
-			"quantidade":100
+			"Name":"1º Lote",
+			"Price":50.5,
+			"DateInitial": "2021-02-17T21:40:35.159",
+			"DateEnd": "2021-02-17T21:40:35.159",
+			"quantity":100
 		}
 	],
-	"RedesSociais": [],
-	"PalestrantesEventos" : []
+	"SocialMedias": [],
+	"SpeakerEvents" : []
 }
 //--------------------------------------------
 {

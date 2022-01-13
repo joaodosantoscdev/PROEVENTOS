@@ -10,7 +10,6 @@ using ProEventos.Application.Services.Interfaces;
 using ProEventos.Persistence;
 using ProEventos.Persistence.Repository;
 using ProEventos.Persistence.Repository.Interfaces;
-using AutoMapper;
 using System;
 
 namespace ProEventosAPI
@@ -35,9 +34,12 @@ namespace ProEventosAPI
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IEventService, EventSevice>();
+            services.AddScoped<IPartService, PartSevice>();
+
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IGeneralRepository, GeneralRepository>();
-            
+            services.AddScoped<IPartRepository, PartRepository>();
+
             services.AddCors();
 
             services.AddSwaggerGen(c =>

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -5,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from '@app/models/Event';
 import { Part } from '@app/models/Part';
 import { EventService } from '@app/services/event.service';
+import { PartService } from '@app/services/part.service';
 
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EventDetailsComponent implements OnInit {
 
+  eventId: number;
   event = {} as Event;
   form: FormGroup;
   state = 'post';
@@ -47,6 +50,7 @@ export class EventDetailsComponent implements OnInit {
               private localeService: BsLocaleService,
               private activatedRouter: ActivatedRoute,
               private router: Router,
+              private partService: PartService,
               private eventService: EventService,
               private spinner: NgxSpinnerService,
               private toastr: ToastrService)
@@ -55,15 +59,16 @@ export class EventDetailsComponent implements OnInit {
     }
 
   loadEvent(): void {
-    const eventIdParam = this.activatedRouter.snapshot.paramMap.get('id');
-
-    if (eventIdParam !== null) {
+    this.eventId = +this.activatedRouter.snapshot.paramMap.get('id');
+    if (this.eventId !== null && this.eventId !== 0) {
       this.spinner.show();
       this.state = 'put';
-      this.eventService.getEventById(+eventIdParam).subscribe(
-        (event: Event) => {
-          this.event = {...event};
+
+      this.eventService.getEventById(this.eventId).subscribe(
+        (eventResult: Event) => {
+          this.event = {...eventResult};
           this.form.patchValue(this.event);
+          this.loadParts();
         },
         (error: any) => {
           this.toastr.error('Erro ao tentar carregar o evento', 'Erro!');
@@ -71,6 +76,20 @@ export class EventDetailsComponent implements OnInit {
         }
       ).add(() => this.spinner.hide());
     }
+  }
+
+  loadParts(): void {
+    this.partService.getPartsByEventId(this.eventId).subscribe(
+      (partsReturn: Part[]) => {
+      partsReturn.forEach(part => {
+        this.parts.push(this.createPart(part));
+      });
+      },
+      (error: any) => {
+        this.toastr.error('Erro ao tentar carregar os lotes', 'Erro!');
+        console.error(error);
+      }
+    ).add(() => this.spinner.hide());
   }
 
   ngOnInit(): void {
@@ -92,7 +111,7 @@ export class EventDetailsComponent implements OnInit {
   }
 
   addPart(): void {
-    this.parts.push(this.createPart({id: 0}as Part));
+    this.parts.push(this.createPart({id: 0} as Part));
   }
 
   createPart(part: Part): FormGroup {
@@ -122,15 +141,32 @@ export class EventDetailsComponent implements OnInit {
         : { id: this.event.id, ...this.form.value };
       this.eventService[this.state](this.event).subscribe(
         (eventReturn: Event) => {
-          this.loadEvent();
-          this.router.navigate([`events/details/${eventReturn.id}`]);
           this.toastr.success(`Evento ${this.event.id ? 'atualizado' : 'criado' } com sucesso`, 'Ok!');
+          this.event = {...eventReturn};
+          this.form.patchValue(this.event);
+          this.router.navigate([`events/details/${eventReturn.id}`]);
       },
         (error: any) => {
           this.toastr.error(`Erro ao tentar ${this.event.id ? 'atualizar' : 'criar' } o evento`, 'Erro!');
           console.error(error);
         }
 
+      ).add(() => this.spinner.hide());
+    }
+  }
+
+  public saveParts(): void {
+    this.spinner.show();
+    if (this.form.controls.parts.valid) {
+      this.partService.SavePart(this.eventId, this.form.value.parts).subscribe(
+        () => {
+          this.toastr.success('Lotes salvos com Sucesso!', 'Ok!');
+          this.parts.reset();
+        },
+        (error: any) => {
+          this.toastr.error('Erro ao tentar salvar os Lotes', 'Erro!');
+          console.error(error);
+        }
       ).add(() => this.spinner.hide());
     }
   }

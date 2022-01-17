@@ -111,7 +111,8 @@
         <button class="btn btn-outline-danger mr-auto border" (click)="resetForm()">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success" [disabled]="!form.valid || !this.form.touched" (click)="saveEvent()">
+        <button class="btn btn-success" [disabled]="!form.valid || !this.form.touched"
+        (click)="saveEvent()">
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           Salvar Evento
         </button>
@@ -136,7 +137,10 @@
         <div formArrayName ="parts" *ngFor="let part of parts.controls; let i=index">
           <fieldset [formGroupName]="i" class="form-group">
             <legend class="d-flex justify-content-between capitalize">
-              <button class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex mb-2"
+              {{returnTitlePart(parts.get(i + '.name').value)}}
+              <button
+              (click)="removeParts(template, i)"
+              class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex mb-2"
                 tooltip="Excluir Lote"
                 [adaptivePosition]="false"
                 [delay]="500"
@@ -167,6 +171,7 @@
             <div class="form-group col-md-4">
               <label>Preço</label>
               <input
+              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
               [ngClass]="cssValidator(parts.get(i+'.price'))"
               type="text"
               currencyMask
@@ -180,8 +185,11 @@
               [ngClass]="cssValidator(parts.get(i+'.dateInitial'))"
               type="text"
               class="form-control"
-              formControlName="DateInitial"
-              placeholder="01/01/2019">
+              formControlName="dateInitial"
+              placeholder="DD/MM/YYYY HH:mm"
+              bsDatepicker
+              [bsConfig]="bsConfigParts"
+              value="{{ event.dateEvent | date : 'dd/MM/yyyy hh:mm a' : '-0600' }}">
             </div>
             <div class="form-group col-md-4">
               <label>Data de Fim</label>
@@ -190,7 +198,10 @@
               type="text"
               class="form-control"
               formControlName="dateEnd"
-              placeholder="01/01/2019">
+              placeholder="DD/MM/YYYY HH:mm"
+              bsDatepicker
+              [bsConfig]="bsConfigParts"
+              value="{{ event.dateEvent | date : 'dd/MM/yyyy hh:mm a' : '-0600' }}">
             </div>
           </div>
         </fieldset>
@@ -207,10 +218,18 @@
     <button class="btn btn-outline-danger mr-auto border">
       Cancelar Alteração
     </button>
-    <button class="btn btn-success" (click)="saveParts()">
+    <button class="btn btn-success" [disabled]="!form.controls.parts.valid" (click)="saveParts()">
       Salvar Lotes
     </button>
   </div>
 </div>
 </div>
 <br>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja deletar o {{this.actualPart.name}} ?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDeletePart()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="declineDeletePart()" >Não</button>
+  </div>
+</ng-template>

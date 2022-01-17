@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { EventService } from '@app/services/event.service';
 import { PartService } from '@app/services/part.service';
 
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
@@ -19,10 +20,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EventDetailsComponent implements OnInit {
 
+  modalRef: BsModalRef;
   eventId: number;
   event = {} as Event;
   form: FormGroup;
   state = 'post';
+  actualPart = {id: 0, name: '', index: 0};
 
   get editMode(): boolean {
     return this.state === 'put';
@@ -46,11 +49,22 @@ export class EventDetailsComponent implements OnInit {
     };
   }
 
+  get bsConfigParts(): any {
+    return {
+      adaptivePosition: true,
+      dateInputFormat: 'DD/MM/YYYY',
+      isAnimated: true,
+      containerClass: 'theme-dark-blue',
+      showWeekNumbers: false
+    };
+  }
+
   constructor(private fb: FormBuilder,
               private localeService: BsLocaleService,
               private activatedRouter: ActivatedRoute,
               private router: Router,
               private partService: PartService,
+              private modalService: BsModalService,
               private eventService: EventService,
               private spinner: NgxSpinnerService,
               private toastr: ToastrService)
@@ -125,6 +139,10 @@ export class EventDetailsComponent implements OnInit {
     });
   }
 
+  public returnTitlePart(name: string): string {
+    return name === null || name === '' ? 'Nome do lote' : name;
+  }
+
   public resetForm(): void {
     this.form.reset();
   }
@@ -156,12 +174,12 @@ export class EventDetailsComponent implements OnInit {
   }
 
   public saveParts(): void {
-    this.spinner.show();
     if (this.form.controls.parts.valid) {
+      this.spinner.show();
       this.partService.SavePart(this.eventId, this.form.value.parts).subscribe(
-        () => {
+        (partReturn: any) => {
           this.toastr.success('Lotes salvos com Sucesso!', 'Ok!');
-          this.parts.reset();
+          this.router.navigate([`events/details/${partReturn.id}`]);
         },
         (error: any) => {
           this.toastr.error('Erro ao tentar salvar os Lotes', 'Erro!');
@@ -169,5 +187,34 @@ export class EventDetailsComponent implements OnInit {
         }
       ).add(() => this.spinner.hide());
     }
+  }
+
+  public removeParts(template: TemplateRef<any>, index: number): void  {
+
+    this.actualPart.id = this.parts.get(index + '.id').value;
+    this.actualPart.name = this.parts.get(index + '.name').value;
+    this.actualPart.index = index;
+
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirmDeletePart(): void {
+    this.modalRef.hide();
+    this.spinner.show();
+
+    this.partService.deletePart(this.eventId, this.actualPart.id).subscribe(
+      () => {
+        this.toastr.success('Lote deletado com sucesso', 'Sucesso!');
+        this.parts.removeAt(this.actualPart.index);
+      },
+      (error: any) => {
+        this.toastr.error(`Ocorreu um erro ao tentar deletar o Lote: ${this.actualPart.id}`, 'Erro!');
+        console.error(error);
+      }
+    ).add(() => this.spinner.hide());
+  }
+
+  declineDeletePart(): void {
+    this.modalRef.hide();
   }
 }

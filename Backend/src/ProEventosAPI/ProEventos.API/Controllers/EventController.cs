@@ -4,6 +4,9 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using ProEventos.Application.DTO;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System.Linq;
 
 namespace ProEventosAPI.Controllers
 {
@@ -14,8 +17,10 @@ namespace ProEventosAPI.Controllers
         // Constructor &  Dependencies
         #region DI Injected
         private readonly IEventService _eventService;
-        public EventController(IEventService eventService)
+        private readonly IWebHostEnvironment _hostEnvironment;
+        public EventController(IEventService eventService, IWebHostEnvironment hostEnvironment)
         {
+            _hostEnvironment = hostEnvironment;
             _eventService = eventService;
         }
         #endregion
@@ -88,6 +93,30 @@ namespace ProEventosAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar encontrar evento. Erro {e.Message}");
             }
         }
+
+        [HttpPost("upload-image/{eventId}")]
+        public async Task<IActionResult> UploadImg(int eventId)
+        {
+            try
+            {
+                var _event = await _eventService.GetEventByIdAsync(eventId, true);
+                if (_event == null) return NoContent();
+
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    DeleteImg(_event.ImageURL);
+                    _event.ImageURL = await SaveImg(file);
+                }
+                var eventReturn = await _eventService.UpdateEvent(eventId, _event);
+
+                return Ok(eventReturn);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar encontrar evento. Erro {e.Message}");
+            }
+        }
         #endregion
 
         //UPDATE - Events
@@ -125,6 +154,38 @@ namespace ProEventosAPI.Controllers
 
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar encontrar evento. Erro {e.Message}");
             }
+}
+        #endregion
+
+        // NON-ACTION METHODS - Events
+        #region Non Action Methods - Controller
+        [NonAction]
+        public async Task<string> SaveImg(IFormFile imageFile)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName)
+                .Take(10)
+                .ToArray())
+                .Replace(' ', '-');
+
+            imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
+
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resouces/Images", imageName);
+
+            using (var FileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(FileStream);
+            }
+
+            return imageName;
+        }
+
+        [NonAction]
+        public void DeleteImg(string imageName)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Images", imageName);
+            if (System.IO.File.Exists(imagePath))
+                System.IO.File.Delete(imagePath);
+
         }
         #endregion
     }

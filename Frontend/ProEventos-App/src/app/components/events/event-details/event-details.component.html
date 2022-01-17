@@ -1,229 +1,279 @@
-<div class="card shadow-sm">
-  <form [formGroup]="form">
-    <div class="p-3">
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label>Tema</label>
-          <input
-          type="text"
-          class="form-control is-invalid"
-          formControlName="theme"
+<div class="row">
+  <div [ngClass]="{'col-md-8 pr-0': editMode, 'col-md-12': !editMode }">
+    <div class="card shadow-sm">
+      <form [formGroup]="form">
+        <div class="p-3">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Tema</label>
+              <input
+              type="text"
+              class="form-control is-invalid"
+              formControlName="theme"
 
-          placeholder="Insira o Tema"
-          [ngClass]="cssValidator(f.theme)">
-          <div *ngIf="f.theme.errors?.required" class="invalid-feedback">
-            Tema é obrigatório
+              placeholder="Insira o Tema"
+              [ngClass]="cssValidator(f.theme)">
+              <div *ngIf="f.theme.errors?.required" class="invalid-feedback">
+                Tema é obrigatório
+              </div>
+              <div *ngIf="f.theme.errors?.minlength" class="invalid-feedback">
+                Tema deve ter no mínimo 4 caractéres
+              </div>
+              <div *ngIf="f.theme.errors?.maxlength" class="invalid-feedback">
+                Tema deve ter no máximo 50 caractéres
+              </div>
+            </div>
           </div>
-          <div *ngIf="f.theme.errors?.minlength" class="invalid-feedback">
-            Tema deve ter no mínimo 4 caractéres
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label>Local</label>
+              <input
+              type="text"
+              class="form-control is-invalid"
+              formControlName="local"
+              placeholder="Local do Evento"
+              [ngClass]="cssValidator(f.local)">
+              <div *ngIf="f.local.errors?.required" class="invalid-feedback">
+                Local é obrigatório
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Data e Hora</label>
+              <input
+              type="datetime"
+              class="form-control is-invalid"
+              formControlName="dateEvent"
+              placeholder="DD/MM/AAAA - HH:mm"
+              value="{{ event.dateEvent | date : 'dd/MM/yyyy HH:mm a' : '-0600' }}"
+              [ngClass]="cssValidator(f.dateEvent)"
+              bsDatepicker
+              [bsConfig]="bsConfig">
+              <div *ngIf="f.dateEvent.errors?.required" class="invalid-feedback">
+                Data e Hora do evento é obrigatória
+              </div>
+            </div>
           </div>
-          <div *ngIf="f.theme.errors?.maxlength" class="invalid-feedback">
-            Tema deve ter no máximo 50 caractéres
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <label>Qtd Pessoas</label>
+              <input
+              type="number"
+              class="form-control is-invalid"
+              formControlName="capacity"
+              placeholder="Capacidade do evento"
+              [ngClass]="cssValidator(f.capacity)">
+              <div *ngIf="f.capacity.errors?.required" class="invalid-feedback">
+                Quantidade de pessoas é obrigatória
+              </div>
+              <div *ngIf="f.capacity.errors?.max" class="invalid-feedback">
+                O evento pode ter no máximo 120000 pessoas
+              </div>
+              <div *ngIf="f.capacity.errors?.min" class="invalid-feedback">
+                O evento pode ter no mínimo 20 pessoas
+              </div>
+            </div>
+            <div class="form-group col-md-2">
+              <label>Telefone</label>
+              <input
+              type="text"
+              class="form-control is-invalid"
+              formControlName="callNumber"
+              placeholder="(00) 90000-0000"
+              [ngClass]="cssValidator(f.callNumber)">
+              <div *ngIf="f.callNumber.errors?.required" class="invalid-feedback">
+                Telefone é obrigatório
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>E-mail</label>
+              <input
+              type="text"
+              class="form-control is-invalid"
+              formControlName="email"
+              placeholder="E-mail"
+              [ngClass]="cssValidator(f.email)">
+              <div *ngIf="f.email.errors?.required" class="invalid-feedback">
+                E-mail é obrigatório
+              </div>
+              <div *ngIf="f.email.errors?.email" class="invalid-feedback">
+                Email não reconhecido. O endereço deve ser um email válido [exemplo123@exemplo.com(.br)]
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Imagem</label>
+              <input type="text" class="form-control is-invalid" formControlName="imageURL" placeholder="Imagem" [ngClass]="cssValidator(f.imageURL)">
+              <div *ngIf="f.imageURL.errors?.required" class="invalid-feedback">
+                Imagem é obrigatória
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex">
+            <button class="btn btn-outline-danger mr-auto border" (click)="resetForm()">
+              Cancelar Alteração
+            </button>
+            <button class="btn btn-success" [disabled]="!form.valid || !this.form.touched"
+            (click)="saveEvent()">
+              <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+              Salvar Evento
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div  [formGroup]="form" class="card rounded shadow-sm mt-3" *ngIf="editMode">
+      <div class="p-3">
+        <div class="d-flex border-bottom">
+          <h3 class="mr-auto">
+            Lotes do Evento
+          </h3>
+          <h2>
+            <i class="fas fa-money-bill-wave"></i>
+          </h2>
+        </div>
+        <div class="alert alert-light alert-button alert-dismissible fade show mt-1" role="alert">Clique em <b class="text-primary">Lote</b> para adicionar um novo campo em Lotes
+        </div>
+        <div class="form-row p-1">
+          <div class="col">
+            <div formArrayName ="parts" *ngFor="let part of parts.controls; let i=index">
+              <fieldset [formGroupName]="i" class="form-group">
+                <legend class="d-flex justify-content-between capitalize">
+                  {{returnTitlePart(parts.get(i + '.name').value)}}
+                  <button
+                  (click)="removeParts(template, i)"
+                  class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex mb-2"
+                    tooltip="Excluir Lote"
+                    [adaptivePosition]="false"
+                    [delay]="500"
+                    placement="left">
+                  <i class="fa fa-window-close my-1"></i>
+                  <b class="ml-1 d-none d-sm-block">Excluir</b>
+                </button>
+              </legend>
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label>Nome</label>
+                  <input
+                  [ngClass]="cssValidator(parts.get(i+'.name'))"
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                  placeholder="Lote">
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Quantidade</label>
+                  <input
+                  [ngClass]="cssValidator(parts.get(i+'.quantity'))"
+                  type="text"
+                  class="form-control"
+                  formControlName="quantity"
+                  placeholder="000">
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Preço</label>
+                  <input
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
+                  [ngClass]="cssValidator(parts.get(i+'.price'))"
+                  type="text"
+                  currencyMask
+                  class="form-control"
+                  formControlName="price"
+                  placeholder="R$ 0,00">
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Data de Início</label>
+                  <input
+                  [ngClass]="cssValidator(parts.get(i+'.dateInitial'))"
+                  type="text"
+                  class="form-control"
+                  formControlName="dateInitial"
+                  placeholder="DD/MM/YYYY"
+                  bsDatepicker
+                  [bsConfig]="bsConfigParts"
+                  value="{{ event.dateEvent | date : 'dd/MM/yyyy' : '-0600' }}">
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Data de Fim</label>
+                  <input
+                  [ngClass]="cssValidator(parts.get(i+'.dateEnd'))"
+                  type="text"
+                  class="form-control"
+                  formControlName="dateEnd"
+                  placeholder="DD/MM/YYYY"
+                  bsDatepicker
+                  [bsConfig]="bsConfigParts"
+                  value="{{ event.dateEvent | date : 'dd/MM/yyyy' : '-0600' }}">
+                </div>
+              </div>
+            </fieldset>
           </div>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-8">
-          <label>Local</label>
-          <input
-          type="text"
-          class="form-control is-invalid"
-          formControlName="local"
-          placeholder="Local do Evento"
-          [ngClass]="cssValidator(f.local)">
-          <div *ngIf="f.local.errors?.required" class="invalid-feedback">
-            Local é obrigatório
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>Data e Hora</label>
-          <input
-          type="datetime"
-          class="form-control is-invalid"
-          formControlName="dateEvent"
-          placeholder="DD/MM/AAAA - HH:mm"
-          value="{{ event.dateEvent | date : 'dd/MM/yyyy hh:mm a' : '-0600' }}"
-          [ngClass]="cssValidator(f.dateEvent)"
-          bsDatepicker
-          [bsConfig]="bsConfig">
-          <div *ngIf="f.dateEvent.errors?.required" class="invalid-feedback">
-            Data e Hora do evento é obrigatória
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-2">
-          <label>Qtd Pessoas</label>
-          <input
-          type="number"
-          class="form-control is-invalid"
-          formControlName="capacity"
-          placeholder="Capacidade do evento"
-          [ngClass]="cssValidator(f.capacity)">
-          <div *ngIf="f.capacity.errors?.required" class="invalid-feedback">
-            Quantidade de pessoas é obrigatória
-          </div>
-          <div *ngIf="f.capacity.errors?.max" class="invalid-feedback">
-            O evento pode ter no máximo 120000 pessoas
-          </div>
-          <div *ngIf="f.capacity.errors?.min" class="invalid-feedback">
-            O evento pode ter no mínimo 20 pessoas
-          </div>
-        </div>
-        <div class="form-group col-md-2">
-          <label>Telefone</label>
-          <input
-          type="text"
-          class="form-control is-invalid"
-          formControlName="callNumber"
-          placeholder="(00) 90000-0000"
-          [ngClass]="cssValidator(f.callNumber)">
-          <div *ngIf="f.callNumber.errors?.required" class="invalid-feedback">
-            Telefone é obrigatório
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>E-mail</label>
-          <input
-          type="text"
-          class="form-control is-invalid"
-          formControlName="email"
-          placeholder="E-mail"
-          [ngClass]="cssValidator(f.email)">
-          <div *ngIf="f.email.errors?.required" class="invalid-feedback">
-            E-mail é obrigatório
-          </div>
-          <div *ngIf="f.email.errors?.email" class="invalid-feedback">
-            Email não reconhecido. O endereço deve ser um email válido [exemplo123@exemplo.com(.br)]
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>Imagem</label>
-          <input type="text" class="form-control is-invalid" formControlName="imageURL" placeholder="Imagem" [ngClass]="cssValidator(f.imageURL)">
-          <div *ngIf="f.imageURL.errors?.required" class="invalid-feedback">
-            Imagem é obrigatória
-          </div>
-        </div>
-      </div>
+      <button (click)="addPart()" class="d-flex btn btn-outline-primary">
+        <i class="fa fa-plus-circle my-1"></i>
+        <b class="ml-1">Lote</b>
+      </button>
     </div>
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-danger mr-auto border" (click)="resetForm()">
+        <button class="btn btn-outline-danger mr-auto border">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success" [disabled]="!form.valid || !this.form.touched"
-        (click)="saveEvent()">
-          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
-          Salvar Evento
+        <button class="btn btn-success" [disabled]="!form.controls.parts.valid" (click)="saveParts()">
+          Salvar Lotes
         </button>
       </div>
     </div>
-  </form>
-</div>
-<div  [formGroup]="form" class="card rounded shadow-sm mt-4" *ngIf="editMode">
-  <div class="p-3">
-    <div class="d-flex border-bottom">
-      <h2 class="mr-auto">
-        Lotes do Evento
-      </h2>
-      <h2>
-        <i class="fas fa-money-bill-wave"></i>
-      </h2>
     </div>
-    <div class="alert alert-light alert-button alert-dismissible fade show mt-1" role="alert">Clique em <b class="text-primary">Lote</b> para adicionar um novo campo em Lotes
-    </div>
-    <div class="form-row p-1">
-      <div class="col">
-        <div formArrayName ="parts" *ngFor="let part of parts.controls; let i=index">
-          <fieldset [formGroupName]="i" class="form-group">
-            <legend class="d-flex justify-content-between capitalize">
-              {{returnTitlePart(parts.get(i + '.name').value)}}
-              <button
-              (click)="removeParts(template, i)"
-              class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex mb-2"
-                tooltip="Excluir Lote"
-                [adaptivePosition]="false"
-                [delay]="500"
-                placement="left">
-              <i class="fa fa-window-close my-1"></i>
-              <b class="ml-1 d-none d-sm-block">Excluir</b>
-            </button>
-          </legend>
+  </div>
+  <div class="col-md-4" *ngIf="editMode">
+    <div [formGroup]="form" class="card-evento-view shadow-sm">
+      <div class="form-row">
+        <div class="form-group m-0">
+          <input type="file" #file (change)="onFileChange($event)"  class="form-control is-invalid" placeholder="" style="display: none">
+        </div>
+      </div>
+      <div class="card profile-card-2">
+        <div class="card-img-block">
+          <img class="image rounded shadow-sm" [src]="imageURL" class="img-fluid" (click)="file.click()" alt="Card image cap"
+          tooltip="Upload de Nova Imagem" [adaptivePosition]="false" placement="bottom" />
+          <div class="card-footer"></div>
+        </div>
+        <div class="card-body pt-3">
+          <h4>{{event.theme}}</h4>
+          <p class="card-text">
+            <b>Local:</b> {{event.local}}
+            <br>
+            <b>Data:</b> {{event.dateEvent | date : 'dd/MM/yy - HH:mm' : '-0600' }}
+          </p>
+          <hr>
+          <p class="card-text">
+            <b>Contatos</b><br>
+            <small class="text-muted">Telefone: {{event.callNumber}}</small>
+            <br>
+            <small class="text-muted">e-mail: {{event.email}}</small>
+          </p>
+          <p class="card-text">
+            Capacidade:
+            <small class="text-muted">{{event.capacity}}</small>
+          </p>
           <div class="row">
-            <div class="form-group col-md-4">
-              <label>Nome</label>
-              <input
-              [ngClass]="cssValidator(parts.get(i+'.name'))"
-              type="text"
-              class="form-control"
-              formControlName="name"
-              placeholder="Lote">
+            <div class="icon-block col-md-8 iconesSociais">
+              <a href="">
+                <i class=""></i>
+              </a>
             </div>
-            <div class="form-group col-md-4">
-              <label>Quantidade</label>
-              <input
-              [ngClass]="cssValidator(parts.get(i+'.quantity'))"
-              type="text"
-              class="form-control"
-              formControlName="quantity"
-              placeholder="000">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Preço</label>
-              <input
-              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
-              [ngClass]="cssValidator(parts.get(i+'.price'))"
-              type="text"
-              currencyMask
-              class="form-control"
-              formControlName="price"
-              placeholder="R$ 0,00">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Data de Início</label>
-              <input
-              [ngClass]="cssValidator(parts.get(i+'.dateInitial'))"
-              type="text"
-              class="form-control"
-              formControlName="dateInitial"
-              placeholder="DD/MM/YYYY HH:mm"
-              bsDatepicker
-              [bsConfig]="bsConfigParts"
-              value="{{ event.dateEvent | date : 'dd/MM/yyyy hh:mm a' : '-0600' }}">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Data de Fim</label>
-              <input
-              [ngClass]="cssValidator(parts.get(i+'.dateEnd'))"
-              type="text"
-              class="form-control"
-              formControlName="dateEnd"
-              placeholder="DD/MM/YYYY HH:mm"
-              bsDatepicker
-              [bsConfig]="bsConfigParts"
-              value="{{ event.dateEvent | date : 'dd/MM/yyyy hh:mm a' : '-0600' }}">
-            </div>
+            <!--div class="col-md-4 d-flex justify-content-center">
+              <a href="#" class="btn btn-outline-primary">Participar</a>
+            </div-->
           </div>
-        </fieldset>
+        </div>
       </div>
     </div>
   </div>
-  <button (click)="addPart()" class="d-flex btn btn-outline-primary">
-    <i class="fa fa-plus-circle my-1"></i>
-    <b class="ml-1">Lote</b>
-  </button>
 </div>
-<div class="card-footer">
-  <div class="d-flex">
-    <button class="btn btn-outline-danger mr-auto border">
-      Cancelar Alteração
-    </button>
-    <button class="btn btn-success" [disabled]="!form.controls.parts.valid" (click)="saveParts()">
-      Salvar Lotes
-    </button>
-  </div>
-</div>
-</div>
+
 <br>
 
 <ng-template #template>

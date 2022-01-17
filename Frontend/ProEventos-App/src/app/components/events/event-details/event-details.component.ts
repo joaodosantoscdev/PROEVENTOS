@@ -26,6 +26,8 @@ export class EventDetailsComponent implements OnInit {
   form: FormGroup;
   state = 'post';
   actualPart = {id: 0, name: '', index: 0};
+  imageURL = 'assets/img/upload-img.png';
+  file: File;
 
   get editMode(): boolean {
     return this.state === 'put';
@@ -216,5 +218,30 @@ export class EventDetailsComponent implements OnInit {
 
   declineDeletePart(): void {
     this.modalRef.hide();
+  }
+
+  onFileChange(ev: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => this.imageURL = event.target.result;
+    debugger;
+    this.file = ev.target.files;
+    reader.readAsDataURL(this.file[0]);
+
+    this.uploadImage();
+  }
+
+  uploadImage(): void {
+    this.spinner.show();
+    this.eventService.postUpload(this.eventId, this.file).subscribe(
+      () => {
+        this.loadEvent();
+        this.toastr.success('Imagem atualizada com sucesso', 'Sucesso!');
+      },
+      (error: any) => {
+        this.toastr.error('Erro ao atualizar a imagem', 'Erro!');
+        console.log(error);
+    }
+      ).add(() => this.spinner.hide());
   }
 }

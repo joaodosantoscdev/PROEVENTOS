@@ -176,7 +176,7 @@ namespace ProEventosAPI.Controllers
                 .ToArray())
                 .Replace(' ', '-');
 
-            imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
+            imageName = $"{imageName}{DateTime.UtcNow:yymmssfff}{Path.GetExtension(imageFile.FileName)}";
 
             var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Images", imageName);
 

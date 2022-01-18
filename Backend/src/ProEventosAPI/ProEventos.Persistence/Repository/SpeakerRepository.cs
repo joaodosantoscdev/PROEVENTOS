@@ -35,7 +35,9 @@ namespace ProEventos.Persistence.Repository
                     .ThenInclude(pe => pe.Event);
             }
 
-            query = query.AsNoTracking().OrderBy(p => p.Id).Where(p => p.Name.ToLower().Contains(name.ToLower()));
+            query = query.AsNoTracking().OrderBy(p => p.Id)
+                .Where(p => p.User.FirstName.ToLower().Contains(name.ToLower()) &&
+                            p.User.LastName.ToLower().Contains(name.ToLower()));
 
             return await query.ToArrayAsync();
         }

@@ -7,6 +7,7 @@ import { Event } from '@app/models/Event';
 import { Part } from '@app/models/Part';
 import { EventService } from '@app/services/event.service';
 import { PartService } from '@app/services/part.service';
+import { environment } from '@environments/environment';
 
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -84,6 +85,9 @@ export class EventDetailsComponent implements OnInit {
         (eventResult: Event) => {
           this.event = {...eventResult};
           this.form.patchValue(this.event);
+          if (this.event.imageURL !== '') {
+            this.imageURL = `${environment.apiURL}Resources/Images/${this.event.imageURL}`;
+          }
           this.loadParts();
         },
         (error: any) => {
@@ -121,7 +125,7 @@ export class EventDetailsComponent implements OnInit {
       capacity: ['', [Validators.required, Validators.max(12000), Validators.min(20)]],
       callNumber: ['', Validators.required],
       email: ['', [Validators.required, Validators.email ]],
-      imageURL: ['', Validators.required],
+      imageURL: [''],
       parts: this.fb.array([])
     });
   }
@@ -224,7 +228,6 @@ export class EventDetailsComponent implements OnInit {
     const reader = new FileReader();
 
     reader.onload = (event: any) => this.imageURL = event.target.result;
-    debugger;
     this.file = ev.target.files;
     reader.readAsDataURL(this.file[0]);
 

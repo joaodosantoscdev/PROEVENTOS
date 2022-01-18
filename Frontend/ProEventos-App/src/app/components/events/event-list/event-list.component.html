@@ -38,7 +38,7 @@
     <tbody *ngIf="events && events.length">
       <tr  *ngFor="let event of eventsFilter" (click)="detailsEvent(event.id)" style="cursor: pointer;">
         <td class="d-none d-sm-table-cell">
-          <img [collapse]="showImg" [isAnimated]="true" [style.width.px]="widthImg" [style.margin.px]="marginImg" src="/assets/{{event.imageURL}}" alt="imagem" />
+          <img [collapse]="showImg" [isAnimated]="true" [style.width.px]="widthImg" [style.margin.px]="marginImg" [src]="showImages(event.imageURL)"  alt="imagem" />
         </td>
         <td>{{event.id}}</td>
         <td>{{event.theme}}</td>
@@ -51,13 +51,13 @@
             <button class="btn btn-info btn-md mr-2" tooltip="Editar">
               <div class="d-flex">
                 <i class="fa fa-edit my-1 mr-lg-1"></i>
-                <b class="d-none d-sm-block">Editar</b>
+                <b class="d-none d-lg-block">Editar</b>
               </div>
             </button>
             <button class="btn btn-danger btn-md"  tooltip="Excluir" (click)="openModal($event, template, event.id)">
               <div class="d-flex">
                 <i class="fa fa-trash my-1 mr-lg-1"></i>
-                <b class="d-none d-sm-block">Excluir</b>
+                <b class="d-none d-lg-block">Excluir</b>
               </div>
             </button>
           </div>

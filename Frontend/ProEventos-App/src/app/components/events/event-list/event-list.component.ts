@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '@environments/environment';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -102,5 +103,11 @@ export class EventListComponent implements OnInit {
 
   detailsEvent(id: number): void {
     this.router.navigate([`events/details/${id}`]);
+  }
+
+  public showImages(imageURL: string): string {
+    return (imageURL !== '')
+    ? `${environment.apiURL}Resources/Images/${imageURL}`
+    : 'assets/img/withoutImg.jpg';
   }
 }

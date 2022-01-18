@@ -25,8 +25,7 @@ namespace ProEventos.Application.DTO
         Range(20, 120000, ErrorMessage = "{0} não pode ser menor que 20, e maior que 120.000")]
         public int Capacity { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório"), 
-        RegularExpression(@".*\.(gif|jpe?g|bmp|png)$", ErrorMessage = "Não é uma imagem válida. (gif, jpg, jpeg, bmp ou png)")]
+        [RegularExpression(@".*\.(gif|jpe?g|bmp|png)$", ErrorMessage = "Não é uma imagem válida. (gif, jpg, jpeg, bmp ou png)")]
         public string ImageURL { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório"),

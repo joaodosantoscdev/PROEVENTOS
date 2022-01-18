@@ -6,7 +6,7 @@ import { take } from 'rxjs/operators';
 
 @Injectable()
 
-export class EventService {
+export class  EventService {
   baseUrl = 'https://localhost:44388/api/Event';
   constructor(private http: HttpClient) { }
 
@@ -54,5 +54,4 @@ export class EventService {
     .post<Event>(`${this.baseUrl}/upload-image/${eventId}`, formData)
     .pipe(take(1));
   }
-
 }

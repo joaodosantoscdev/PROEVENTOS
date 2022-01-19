@@ -11,7 +11,7 @@ namespace ProEventos.Application.Services.Interfaces
     public interface IUserService
     {
         Task<bool> UserExists(string username);
-        Task<UserUpdateDTO> GetUserByUserName(string username);
+        Task<UserUpdateDTO> GetUserByUserNameAsync(string username);
         Task<SignInResult> CheckUserPasswordAsync(UserUpdateDTO userUpdateDTO, string password);
         Task<UserDTO> CreateAccountAsync(UserDTO userDTO);
         Task<UserUpdateDTO> UpdateAccount(UserUpdateDTO userUpdateDTO);

@@ -28,17 +28,18 @@ namespace ProEventos.Application.Services
 
         // ADD - Events
         #region POST Methods - Services
-        public async Task<EventDTO> AddEvents(EventDTO model)
+        public async Task<EventDTO> AddEvents(int userId, EventDTO model)
         {
             try 
             {
                 var _event = _mapper.Map<Event>(model);
+                _event.UserId = userId;
 
                 _generalRepository.Add(_event);
 
                 if (await _generalRepository.SaveChangesAsync())
                 {
-                    var eventReturn = await _eventRepository.GetEventByIdAsync(_event.Id, false);
+                    var eventReturn = await _eventRepository.GetEventByIdAsync(userId, _event.Id, false);
 
                     return _mapper.Map<EventDTO>(eventReturn);
                 }
@@ -53,14 +54,15 @@ namespace ProEventos.Application.Services
 
         // UPDATE - Events
         #region UPDATE Methods - Services
-        public async Task<EventDTO> UpdateEvent(int eventId, EventDTO model)
+        public async Task<EventDTO> UpdateEvent(int userId, int eventId, EventDTO model)
         {
             try
             {
-                var _event = await _eventRepository.GetEventByIdAsync(eventId, false);
+                var _event = await _eventRepository.GetEventByIdAsync(userId, eventId, false);
                 if (_event == null) return null;
 
                 model.Id = _event.Id;
+                model.UserId = userId;
 
                 _mapper.Map(model, _event);
 
@@ -68,7 +70,7 @@ namespace ProEventos.Application.Services
 
                 if (await _generalRepository.SaveChangesAsync())
                 {
-                    var eventResult = await _eventRepository.GetEventByIdAsync(_event.Id, false);
+                    var eventResult = await _eventRepository.GetEventByIdAsync(userId, _event.Id, false);
 
                     return _mapper.Map<EventDTO>(eventResult);
                 }
@@ -83,11 +85,11 @@ namespace ProEventos.Application.Services
 
         // DELETE - Events
         #region DELETE Methods - Services
-        public async Task<bool> DeleteEvent(int eventId)
+        public async Task<bool> DeleteEvent(int userId, int eventId)
         {
             try
             {
-                var _event = await _eventRepository.GetEventByIdAsync(eventId);
+                var _event = await _eventRepository.GetEventByIdAsync(userId, eventId, false);
                 if (_event == null) throw new Exception ("Não foi possível realizar essa ação, Evento não encontrado!");
 
                 _generalRepository.Delete<Event>(_event);
@@ -103,11 +105,11 @@ namespace ProEventos.Application.Services
 
         // GET - Events
         #region GET Methods - Services
-        public async Task<EventDTO[]> GetAllEventsAsync(bool includeSpeaker = false)
+        public async Task<EventDTO[]> GetAllEventsAsync(int userId, bool includeSpeaker = false)
         {
             try
             {
-                var _events = await _eventRepository.GetAllEventsAsync(includeSpeaker);
+                var _events = await _eventRepository.GetAllEventsAsync(userId, includeSpeaker);
                 if (_events == null) return null;
 
                 var result = _mapper.Map<EventDTO[]>(_events);
@@ -121,11 +123,11 @@ namespace ProEventos.Application.Services
             }
         }
 
-        public async Task<EventDTO> GetEventByIdAsync(int eventId, bool includeSpeaker = false)
+        public async Task<EventDTO> GetEventByIdAsync(int userId, int eventId, bool includeSpeaker = false)
         {
             try
             {
-                var _event = await _eventRepository.GetEventByIdAsync(eventId, includeSpeaker);
+                var _event = await _eventRepository.GetEventByIdAsync(userId, eventId, includeSpeaker);
                 if (_event == null) return null;
 
                 var result = _mapper.Map<EventDTO>(_event);
@@ -139,11 +141,11 @@ namespace ProEventos.Application.Services
             }
         }
 
-        public async Task<EventDTO[]> GetAllEventsByThemeAsync(string theme, bool includeSpeaker = false)
+        public async Task<EventDTO[]> GetAllEventsByThemeAsync(int userId, string theme, bool includeSpeaker = false)
         {
             try
             {
-                var _events = await _eventRepository.GetAllEventsByThemeAsync(theme, includeSpeaker);
+                var _events = await _eventRepository.GetAllEventsByThemeAsync(userId, theme, includeSpeaker);
                 if (_events == null) return null;
 
                 var result = _mapper.Map<EventDTO[]>(_events);

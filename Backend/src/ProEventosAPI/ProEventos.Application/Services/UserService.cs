@@ -79,7 +79,7 @@ namespace ProEventos.Application.Services
             }
         }
 
-        public async Task<UserUpdateDTO> GetUserByUserName(string userName)
+        public async Task<UserUpdateDTO> GetUserByUserNameAsync(string userName)
         {
             try
             {

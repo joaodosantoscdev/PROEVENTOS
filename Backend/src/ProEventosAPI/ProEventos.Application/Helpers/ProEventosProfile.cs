@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ProEventos.Application.DTO;
+using ProEventos.Domain.Identity;
 using ProEventos.Domain.Models;
 
 namespace ProEventos.Application.Helpers
@@ -12,6 +13,10 @@ namespace ProEventos.Application.Helpers
             CreateMap<Part, PartDTO>().ReverseMap();
             CreateMap<SocialMedia, SocialMediaDTO>().ReverseMap();
             CreateMap<Speaker, SpeakerDTO>().ReverseMap();
+            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, UserLoginDTO>().ReverseMap();
+            CreateMap<User, UserUpdateDTO>().ReverseMap();
+
         }
     }
 }

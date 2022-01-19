@@ -10,8 +10,8 @@ namespace ProEventos.Persistence.Repository.Interfaces
     public interface IEventRepository
     {
         // Events
-        Task<Event[]> GetAllEventsByThemeAsync(string theme, bool includeSpeaker = false);
-        Task<Event[]> GetAllEventsAsync(bool includeSpeaker = false);
-        Task<Event> GetEventByIdAsync(int eventId, bool includeSpeaker = false);
+        Task<Event[]> GetAllEventsByThemeAsync(int userId, string theme, bool includeSpeaker = false);
+        Task<Event[]> GetAllEventsAsync(int userId, bool includeSpeaker = false);
+        Task<Event> GetEventByIdAsync(int userId, int eventId, bool includeSpeaker = false);
     }
 }

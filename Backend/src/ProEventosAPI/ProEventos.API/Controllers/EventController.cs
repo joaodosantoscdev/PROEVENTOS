@@ -7,9 +7,12 @@ using ProEventos.Application.DTO;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Linq;
+using ProEventos.API.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProEventosAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EventController : ControllerBase
@@ -18,8 +21,12 @@ namespace ProEventosAPI.Controllers
         #region DI Injected
         private readonly IEventService _eventService;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public EventController(IEventService eventService, IWebHostEnvironment hostEnvironment)
+        private readonly IUserService _userService;
+        public EventController(IEventService eventService, 
+                               IWebHostEnvironment hostEnvironment,
+                               IUserService userService)
         {
+            _userService = userService;
             _hostEnvironment = hostEnvironment;
             _eventService = eventService;
         }
@@ -32,7 +39,7 @@ namespace ProEventosAPI.Controllers
         {
             try
             {
-                var _events = await _eventService.GetAllEventsAsync(true);
+                var _events = await _eventService.GetAllEventsAsync(User.GetUserId(), true);
                 if (_events == null) return NoContent();
 
                 return Ok(_events);
@@ -48,7 +55,7 @@ namespace ProEventosAPI.Controllers
         {
             try
             {
-                var _event = await _eventService.GetEventByIdAsync(id, true);
+                var _event = await _eventService.GetEventByIdAsync(User.GetUserId(), id, true);
                 if (_event == null) return NoContent();
 
                 return Ok(_event);
@@ -64,7 +71,7 @@ namespace ProEventosAPI.Controllers
         {
             try
             {
-                var _event = await _eventService.GetAllEventsByThemeAsync(theme);
+                var _event = await _eventService.GetAllEventsByThemeAsync(User.GetUserId(), theme);
                 if (_event == null) return NoContent();
 
                 return Ok(_event);
@@ -83,7 +90,7 @@ namespace ProEventosAPI.Controllers
         {
             try
             {
-                var _event = await _eventService.AddEvents(model);
+                var _event = await _eventService.AddEvents(User.GetUserId(), model);
                 if (_event == null) return NoContent();
 
                 return Ok(_event);
@@ -99,7 +106,7 @@ namespace ProEventosAPI.Controllers
         {
             try
             {
-                var _event = await _eventService.GetEventByIdAsync(eventId, true);
+                var _event = await _eventService.GetEventByIdAsync(User.GetUserId(), eventId, true);
                 if (_event == null) return NoContent();
 
                 var file = Request.Form.Files[0];
@@ -108,7 +115,7 @@ namespace ProEventosAPI.Controllers
                     DeleteImg(_event.ImageURL);
                     _event.ImageURL = await SaveImg(file);
                 }
-                var eventReturn = await _eventService.UpdateEvent(eventId, _event);
+                var eventReturn = await _eventService.UpdateEvent(User.GetUserId(), eventId, _event);
 
                 return Ok(eventReturn);
             }
@@ -126,7 +133,7 @@ namespace ProEventosAPI.Controllers
         {
             try
             {
-                var _event = await _eventService.UpdateEvent(id, model);
+                var _event = await _eventService.UpdateEvent(User.GetUserId(), id, model);
                 if (_event == null) return NoContent();
 
                 return Ok(_event);
@@ -145,10 +152,10 @@ namespace ProEventosAPI.Controllers
         {
             try
             {
-                var _event = await _eventService.GetEventByIdAsync(id, true);
+                var _event = await _eventService.GetEventByIdAsync(User.GetUserId(), id, true);
                 if (_event == null) return NoContent();
 
-                if (await _eventService.DeleteEvent(id))
+                if (await _eventService.DeleteEvent(User.GetUserId(), id))
                 {
                     DeleteImg(_event.ImageURL);
                     return Ok(new { message = "Deletado" });

@@ -8,7 +8,7 @@ namespace ProEventos.Domain.Enum
 {
     public enum Title
     {
-        NaoInformado,
+        NaoInformado = 1,
         Tecnologo,
         Bacharel,
         Especialista,

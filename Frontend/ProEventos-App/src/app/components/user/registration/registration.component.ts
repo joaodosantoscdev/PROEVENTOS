@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { User } from '@app/models/identity/User';
+import { UserService } from '@app/services/user.service';
 import { ValidatorField } from '@app/helpers/ValidatorField';
+
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -9,13 +15,17 @@ import { ValidatorField } from '@app/helpers/ValidatorField';
 })
 export class RegistrationComponent implements OnInit {
 
+  user = {} as User;
   form!: FormGroup;
 
   get f(): any {
     return this.form.controls;
   }
 
-  constructor( private fb: FormBuilder ) { }
+  constructor( private fb: FormBuilder,
+               private userService: UserService,
+               private router: Router,
+               private toastr: ToastrService ) { }
 
   ngOnInit(): void {
     this.validation();
@@ -37,4 +47,11 @@ export class RegistrationComponent implements OnInit {
     }, formOptions);
   }
 
+  register(): void {
+    this.user = { ...this.form.value };
+    this.userService.register(this.user).subscribe(
+      () => this.router.navigateByUrl('/dashboard'),
+      (error: any) => this.toastr.error(error.error)
+    );
+  }
 }

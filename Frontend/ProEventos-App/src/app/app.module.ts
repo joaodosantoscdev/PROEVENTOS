@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +28,9 @@ import { EventDetailsComponent } from './components/events/event-details/event-d
 
 import { EventService } from './services/event.service';
 import { PartService } from './services/part.service';
+import { UserService } from './services/user.service';
+
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 import { DateFormatPipe } from './helpers/DateFormat.pipe';
 import { UserComponent } from './components/user/user.component';
@@ -78,7 +81,9 @@ defineLocale('pt-br', ptBrLocale);
   ],
   providers: [
     EventService,
-    PartService
+    PartService,
+    UserService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -9,23 +9,35 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarNavAltMarkup">
-    <div class="navbar-nav mr-auto">
-      <a class="nav-link text-secondary" routerLink='events/list' routerLinkActive="active">Eventos</a>
-      <a class="nav-link text-secondary" routerLink='speakers' routerLinkActive="active">Palestrantes</a>
-      <a class="nav-link text-secondary" routerLink='contacts' routerLinkActive="active">Contatos</a>
+    <ul class="navbar-nav mr-auto">
+      <ng-container *ngIf="(userService.currentUser$ | async) !== null">
+        <li>
+          <a class="nav-link text-secondary" routerLink='events/list' routerLinkActive="active">Eventos</a>
+        </li>
+        <li>
+          <a class="nav-link text-secondary" routerLink='speakers' routerLinkActive="active">Palestrantes</a>
+        </li>
+        <li>
+          <a class="nav-link text-secondary" routerLink='contacts' routerLinkActive="active">Contatos</a>
+        </li>
+      </ng-container>
+    </ul>
+    <div *ngIf="(userService.currentUser$ | async) === null" class="navbar-nav mr-3 d-xs-none d-none d-md-block">
+      <a class="btn btn-light mr-2 border" routerLink="/user/login" >Entrar</a>
+      <a class="btn btn-warning" routerLink="/user/registration" >Cadastrar-se</a>
     </div>
-    <ul class="navbar-nav mr-5">
-      <li class="nav-item dropdown dropdown-menu-left" dropdown>
+    <ul *ngIf="(userService.currentUser$ | async) !== null" class="navbar-nav mr-5">
+      <li class="nav-item dropdown dropdown-menu-left" dropdown  *ngIf="(userService.currentUser$ | async) as user">
         <a dropdownToggle class="nav-link dropdown-toggle text-secondary" style="cursor: pointer;" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          User
+          {{user.firstName | titlecase }}
         </a>
         <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" routerLink="user/profile">
             Perfil
           </a>
           <div role="separator" class="divider"></div>
-          <a class="dropdown-item" routerLink="user/login">
+          <a (click)="logout()" class="dropdown-item" style="cursor: pointer;">
             Sair
           </a>
         </div>

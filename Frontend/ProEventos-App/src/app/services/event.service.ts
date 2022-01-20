@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, pipe } from 'rxjs';
 import { Event } from '../models/Event';
@@ -9,6 +9,7 @@ import { environment } from '@environments/environment';
 
 export class  EventService {
   baseUrl = `${environment.apiURL}api/Event`;
+
   constructor(private http: HttpClient) { }
 
   public getEvents(): Observable<Event[]> {

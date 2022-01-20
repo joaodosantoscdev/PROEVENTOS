@@ -58,9 +58,9 @@
         class="form-control is-invalid"
         type="text"
         placeholder="Insira o nome de Usuário"
-        formControlName="user"
-        [ngClass]="{ 'is-invalid': f.user.errors && f.user.touched }"/>
-        <div *ngIf="f.user.errors?.required" class="invalid-feedback">
+        formControlName="userName"
+        [ngClass]="{ 'is-invalid': f.userName.errors && f.userName.touched }"/>
+        <div *ngIf="f.userName.errors?.required" class="invalid-feedback">
            Um nome de Usuário é obrigatório
         </div>
       </div>

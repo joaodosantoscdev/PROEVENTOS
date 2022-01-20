@@ -87,8 +87,7 @@ defineLocale('pt-br', ptBrLocale);
     UserService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [AppComponent]
 
 })
 export class AppModule { }

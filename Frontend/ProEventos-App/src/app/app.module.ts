@@ -16,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 import { EventsComponent } from './components/events/events.component';
 import { SpeakersComponent } from './components/speakers/speakers.component';
 import { NavComponent } from './shared/nav/nav.component';
@@ -56,7 +57,8 @@ defineLocale('pt-br', ptBrLocale);
     UserComponent,
     LoginComponent,
     RegistrationComponent,
-  ],
+    HomeComponent
+   ],
   imports: [
     BrowserModule,
     FormsModule,

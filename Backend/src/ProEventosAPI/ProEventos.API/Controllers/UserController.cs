@@ -64,7 +64,11 @@ namespace ProEventos.API.Controllers
 
                 var user = await _userService.CreateAccountAsync(userDTO);
 
-                if ( user != null) return Ok(user);
+                if ( user != null) return Ok(new {
+                    userName = user.UserName,
+                    FirstName = user.FirstName,
+                    token = _tokenService.CreateToken(user).Result
+                });
 
                 return BadRequest("Não foi possivel cadastrar o usuário, tente mais tarde!");
             }

@@ -8,7 +8,7 @@ namespace ProEventos.Domain.Enum
 {
     public enum Function
     {
-        NaoInformado,
+        NaoInformado = 1,
         Participante,
         Palestrante
     }

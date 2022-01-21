@@ -11,7 +11,7 @@ namespace ProEventos.Persistence.Repository.Interfaces
     public interface IEventRepository
     {
         // Events
-        Task <PageList<Event>> GetAllEventsAsync(PageParams pgParams, int userId, bool includeSpeaker = false);
+        Task<PageList<Event>> GetAllEventsAsync(PageParams pgParams, int userId, bool includeSpeaker = false);
         Task<Event> GetEventByIdAsync(int userId, int eventId, bool includeSpeaker = false);
     }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { PaginatedResult, Pagination } from '@app/models/pagination';
 import { environment } from '@environments/environment';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
@@ -20,6 +21,7 @@ export class EventListComponent implements OnInit {
   public events: Event[] = [];
   public eventsFilter: Event[] = [];
   public eventId =  0;
+  public pagination = {} as Pagination;
 
   public widthImg = 100;
   public marginImg = 2;
@@ -52,7 +54,11 @@ export class EventListComponent implements OnInit {
     ) {  }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.pagination = {
+      currentPage: 2,
+      itemsPerPage: 3,
+      totalItems: 1,
+    } as Pagination;
     this.loadEvents();
   }
 
@@ -61,24 +67,32 @@ export class EventListComponent implements OnInit {
   }
 
   public loadEvents(): void {
-    this.eventService.getEvents().subscribe({
-      next: (response: Event[]) => {
-        this.events = response;
-        this.eventsFilter = this.events;
-      },
-      error: (error: any) => {
-        this.spinner.hide();
-        this.toastr.error('Erro ao carregar os eventos.', 'Erro!');
-        console.log(error);
-      },
-      complete: () => this.spinner.hide()
-    });
+    this.spinner.show();
+
+    this.eventService.getEvents(this.pagination.currentPage,
+                                this.pagination.itemsPerPage).subscribe(
+        (paginatedResult: PaginatedResult<Event[]>) => {
+          this.events = paginatedResult.result;
+          this.eventsFilter = this.events;
+          this.pagination = {...paginatedResult.pagination};
+        },
+        (error: any) => {
+          this.spinner.hide();
+          this.toastr.error('Erro ao Carregar os Eventos', 'Erro!');
+        }
+      )
+      .add(() => this.spinner.hide());
   }
 
   openModal(event, template: TemplateRef<any>, eventId: number): void  {
     event.stopPropagation();
     this.eventId = eventId;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  public pageChanged(event): void {
+    this.pagination.currentPage = event.page;
+    this.loadEvents();
   }
 
   confirm(): void {

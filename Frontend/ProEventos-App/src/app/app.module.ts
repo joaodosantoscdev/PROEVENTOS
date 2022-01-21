@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -14,6 +15,7 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -37,7 +39,6 @@ import { DateFormatPipe } from './helpers/DateFormat.pipe';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
-import { NgxCurrencyModule } from 'ngx-currency';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -79,7 +80,8 @@ defineLocale('pt-br', ptBrLocale);
       }),
     NgxSpinnerModule,
     FormsModule,
-    NgxCurrencyModule
+    NgxCurrencyModule,
+    PaginationModule
   ],
   providers: [
     EventService,

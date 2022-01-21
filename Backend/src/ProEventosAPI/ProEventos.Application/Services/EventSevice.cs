@@ -5,6 +5,7 @@ using ProEventos.Persistence.Repository.Interfaces;
 using ProEventos.Application.DTO;
 using ProEventos.Domain.Models;
 using AutoMapper;
+using ProEventos.Persistence.Models;
 
 namespace ProEventos.Application.Services
 {
@@ -105,14 +106,19 @@ namespace ProEventos.Application.Services
 
         // GET - Events
         #region GET Methods - Services
-        public async Task<EventDTO[]> GetAllEventsAsync(int userId, bool includeSpeaker = false)
+        public async Task<PageList<EventDTO>> GetAllEventsAsync(PageParams pgParams, int userId, bool includeSpeaker = false)
         {
             try
             {
-                var _events = await _eventRepository.GetAllEventsAsync(userId, includeSpeaker);
+                var _events = await _eventRepository.GetAllEventsAsync(pgParams, userId, includeSpeaker);
                 if (_events == null) return null;
 
-                var result = _mapper.Map<EventDTO[]>(_events);
+                var result = _mapper.Map<PageList<EventDTO>>(_events);
+
+                result.CurrentPage = _events.CurrentPage;
+                result.TotalCount = _events.TotalCount;
+                result.TotalPages = _events.TotalPages;
+                result.PageSize = _events.PageSize;
 
                 return result;
             }
@@ -131,24 +137,6 @@ namespace ProEventos.Application.Services
                 if (_event == null) return null;
 
                 var result = _mapper.Map<EventDTO>(_event);
-
-                return result;
-            }
-            catch (Exception e)
-            {
-
-                throw new Exception(e.Message);
-            }
-        }
-
-        public async Task<EventDTO[]> GetAllEventsByThemeAsync(int userId, string theme, bool includeSpeaker = false)
-        {
-            try
-            {
-                var _events = await _eventRepository.GetAllEventsByThemeAsync(userId, theme, includeSpeaker);
-                if (_events == null) return null;
-
-                var result = _mapper.Map<EventDTO[]>(_events);
 
                 return result;
             }

@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using ProEventos.API.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using ProEventos.Persistence.Models;
 
 namespace ProEventosAPI.Controllers
 {
@@ -35,12 +36,14 @@ namespace ProEventosAPI.Controllers
         // GET - Events
         #region GET Methods - Controller
         [HttpGet("")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery]PageParams pgParams)
         {
             try
             {
-                var _events = await _eventService.GetAllEventsAsync(User.GetUserId(), true);
+                var _events = await _eventService.GetAllEventsAsync(pgParams, User.GetUserId(), true);
                 if (_events == null) return NoContent();
+
+                Response.AddPagination(_events.CurrentPage, _events.PageSize, _events.TotalCount, _events.TotalPages);
 
                 return Ok(_events);
             }
@@ -63,22 +66,6 @@ namespace ProEventosAPI.Controllers
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar encontrar evento. Erro {e.Message}");
-            }
-        }
-
-        [HttpGet("theme/{theme}")]
-        public async Task<IActionResult> GetByTheme(string theme)
-        {
-            try
-            {
-                var _event = await _eventService.GetAllEventsByThemeAsync(User.GetUserId(), theme);
-                if (_event == null) return NoContent();
-
-                return Ok(_event);
-            }
-            catch (Exception e)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar encontrar eventos(s). Erro {e.Message}");
             }
         }
         #endregion

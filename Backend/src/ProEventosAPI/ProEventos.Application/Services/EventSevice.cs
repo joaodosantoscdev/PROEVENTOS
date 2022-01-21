@@ -116,9 +116,9 @@ namespace ProEventos.Application.Services
                 var result = _mapper.Map<PageList<EventDTO>>(_events);
 
                 result.CurrentPage = _events.CurrentPage;
-                result.TotalCount = _events.TotalCount;
                 result.TotalPages = _events.TotalPages;
                 result.PageSize = _events.PageSize;
+                result.TotalCount = _events.TotalCount;
 
                 return result;
             }

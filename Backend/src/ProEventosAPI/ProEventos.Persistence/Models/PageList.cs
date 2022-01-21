@@ -14,25 +14,26 @@ namespace ProEventos.Persistence.Models
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
 
-        public PageList(List<T> items, int count, int pgNumber, int pgSize)
+        public PageList() { }
+
+        public PageList(List<T> items, int count, int pageNumber, int pageSize)
         {
             TotalCount = count;
-            PageSize = pgSize;
-            CurrentPage = pgNumber;
-            TotalPages = (int)Math.Ceiling(count / (double)pgSize);
+            PageSize = pageSize;
+            CurrentPage = pageNumber;
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             AddRange(items);
         }
 
-        public static async Task<PageList<T>> CreateAsync( IQueryable<T> source, 
-                                                           int pgNumber, 
-                                                           int pgSize )
+        public static async Task<PageList<T>> CreateAsync(
+            IQueryable<T> source, int pageNumber, int pageSize
+        )
         {
             var count = await source.CountAsync();
-            var items = await source.Skip((pgNumber - 1) * pgSize)
-                .Take(pgSize)
-                .ToListAsync();
-
-            return new PageList<T>(items, count, pgNumber, pgSize);
+            var items = await source.Skip((pageNumber - 1) * pageSize)
+                                    .Take(pageSize)
+                                    .ToListAsync();
+            return new PageList<T>(items, count, pageNumber, pageSize);
         }
     }
 }

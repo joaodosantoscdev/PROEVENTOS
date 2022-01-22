@@ -38,8 +38,7 @@ namespace ProEventos.Persistence.Repository
             }
 
             query = query.AsNoTracking()
-                         .Where(e => (e.Theme.ToLower().Contains(pgParams.Term.ToLower()) ||
-                                      e.Local.ToLower().Contains(pgParams.Term.ToLower()))
+                         .Where(e => e.Theme.ToLower().Contains(pgParams.Term.ToLower())
                                   && e.UserId == userId)
                          .OrderBy(e => e.Id);
 

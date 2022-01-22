@@ -23,6 +23,7 @@ export class EventListComponent implements OnInit {
   public eventId =  0;
   public pagination = {} as Pagination;
 
+
   public widthImg = 100;
   public marginImg = 2;
   public showImg = true;
@@ -54,11 +55,6 @@ export class EventListComponent implements OnInit {
     ) {  }
 
   ngOnInit(): void {
-    this.pagination = {
-      currentPage: 2,
-      itemsPerPage: 3,
-      totalItems: 1,
-    } as Pagination;
     this.loadEvents();
   }
 
@@ -74,7 +70,7 @@ export class EventListComponent implements OnInit {
         (paginatedResult: PaginatedResult<Event[]>) => {
           this.events = paginatedResult.result;
           this.eventsFilter = this.events;
-          this.pagination = {...paginatedResult.pagination};
+          this.pagination = paginatedResult.pagination;
         },
         (error: any) => {
           this.spinner.hide();

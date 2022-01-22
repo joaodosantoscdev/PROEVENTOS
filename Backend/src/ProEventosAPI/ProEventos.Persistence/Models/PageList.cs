@@ -14,7 +14,9 @@ namespace ProEventos.Persistence.Models
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
 
-        public PageList() { }
+        public PageList()
+        {
+        }
 
         public PageList(List<T> items, int count, int pageNumber, int pageSize)
         {
@@ -26,7 +28,7 @@ namespace ProEventos.Persistence.Models
         }
 
         public static async Task<PageList<T>> CreateAsync(
-            IQueryable<T> source, int pageNumber, int pageSize
+        IQueryable<T> source, int pageNumber, int pageSize
         )
         {
             var count = await source.CountAsync();

@@ -12,17 +12,19 @@ export class  EventService {
   baseUrl = `${environment.apiURL}api/Event`;
   constructor(private http: HttpClient) { }
 
-  public getEvents(page: number, itemsPerPage: number): Observable<PaginatedResult<Event[]>> {
+  public getEvents(page?: number, itemsPerPage?: number, term?: string): Observable<PaginatedResult<Event[]>> {
     const paginatedResult: PaginatedResult<Event[]> = new PaginatedResult<Event[]>();
-    let params: HttpParams;
+
+    let params = new HttpParams();
 
     if (page != null && itemsPerPage != null) {
       params = params.append('pageNumber', page.toString());
       params = params.append('pageSize', itemsPerPage.toString());
     }
 
-    // if (term != null && term != '')
-    //   params = params.append('term', term)
+    if (term != null && term !== '') {
+      params = params.append('term', term);
+    }
 
     return this.http
       .get<Event[]>(this.baseUrl, {observe: 'response', params })

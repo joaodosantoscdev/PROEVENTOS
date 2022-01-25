@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProEventos.Domain.Models;
+using ProEventos.Persistence.Models;
 
 namespace ProEventos.Persistence.Repository.Interfaces
 {
-    public interface ISpeakerRepository
+    public interface ISpeakerRepository : IGeneralRepository
     {
         // Speakers
-        Task<Speaker[]> GetAllSpeakersByNameAsync(string name, bool includeEvents);
-        Task<Speaker[]> GetAllSpeakersAsync(bool includeEvents);
-        Task<Speaker> GetAllSpeakerByIdAsync(int speakerId, bool includeEvents);
+        Task<PageList<Speaker>> GetAllSpeakersAsync(PageParams pgParams, bool includeEvents = false);
+        Task<Speaker> GetAllSpeakerByIdAsync(int userId, bool includeEvents = false);
     }
 }

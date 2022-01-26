@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProEventos.Application.DTO
 {
-    public class SpeakerDTO
+    public class SpeakerUpdateDTO
     {
         public int Id { get; set; }
         public string CV { get; set; }
         public int UserId { get; set; }
-        public UserUpdateDTO User { get; set; }
-        public IEnumerable<SocialMediaDTO> SocialMedias { get; set; }
-        public IEnumerable<EventDTO> Events { get; set; }
     }
 }

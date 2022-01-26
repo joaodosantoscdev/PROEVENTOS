@@ -46,7 +46,7 @@ namespace ProEventos.Persistence.Repository
             return await PageList<Speaker>.CreateAsync(query, pgParams.PageNumber, pgParams.pageSize);
         }
 
-        public async Task<Speaker> GetAllSpeakerByIdAsync(int userId, bool includeEvents)
+        public async Task<Speaker> GetSpeakerByUserIdAsync(int userId, bool includeEvents)
         {
             IQueryable<Speaker> query = _context.Speakers
                 .Include(p => p.User)

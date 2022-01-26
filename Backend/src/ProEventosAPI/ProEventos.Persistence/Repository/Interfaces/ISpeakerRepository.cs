@@ -12,6 +12,6 @@ namespace ProEventos.Persistence.Repository.Interfaces
     {
         // Speakers
         Task<PageList<Speaker>> GetAllSpeakersAsync(PageParams pgParams, bool includeEvents = false);
-        Task<Speaker> GetAllSpeakerByIdAsync(int userId, bool includeEvents = false);
+        Task<Speaker> GetSpeakerByUserIdAsync(int userId, bool includeEvents = false);
     }
 }

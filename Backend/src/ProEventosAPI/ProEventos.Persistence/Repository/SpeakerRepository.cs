@@ -50,16 +50,17 @@ namespace ProEventos.Persistence.Repository
         {
             IQueryable<Speaker> query = _context.Speakers
                 .Include(p => p.User)
-                .Include(e => e.SocialMedias);
+                .Include(p => p.SocialMedias);
 
             if (includeEvents)
             {
-                query = query.AsNoTracking()
-                    .Include(e => e.SpeakerEvents)
-                    .ThenInclude(e => e.Speaker);
+                query = query
+                    .Include(p => p.SpeakerEvents)
+                    .ThenInclude(p => p.Event);
             }
 
-            query = query.OrderBy(e => e.Id == userId);
+            query = query.AsNoTracking().OrderBy(p => p.Id)
+                         .Where(p => p.UserId == userId);
 
             return await query.FirstOrDefaultAsync();
         }

@@ -13,7 +13,13 @@ namespace ProEventos.Application.Helpers
             CreateMap<Event, EventDTO>().ReverseMap();
             CreateMap<Part, PartDTO>().ReverseMap();
             CreateMap<SocialMedia, SocialMediaDTO>().ReverseMap();
+
             CreateMap<Speaker, SpeakerDTO>().ReverseMap();
+            CreateMap<Speaker, SpeakerAddDTO>().ReverseMap();
+            CreateMap<Speaker, SpeakerUpdateDTO>().ReverseMap();
+
+
+
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<User, UserLoginDTO>().ReverseMap();
             CreateMap<User, UserUpdateDTO>().ReverseMap();

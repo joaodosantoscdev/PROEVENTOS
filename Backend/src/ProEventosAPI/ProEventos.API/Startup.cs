@@ -81,11 +81,17 @@ namespace ProEventosAPI
             services.AddScoped<IPartService, PartSevice>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISpeakerService, SpeakerService>();
+            services.AddScoped<ISocialMediaService, SocialMediaService>();
+
+
 
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IGeneralRepository, GeneralRepository>();
             services.AddScoped<IPartRepository, PartRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISpeakerRepository, SpeakerRepository>();
+            services.AddScoped<ISocialMediaRepository, SocialMediaRepository>();
 
 
             services.AddCors();

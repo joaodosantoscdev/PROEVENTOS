@@ -30,7 +30,7 @@ namespace ProEventos.Application.Services
         {
             try 
             {
-                var speaker = _mapper.Map<Event>(model);
+                var speaker = _mapper.Map<Speaker>(model);
                 speaker.UserId = userId;
 
                 _speakerRepository.Add(speaker);

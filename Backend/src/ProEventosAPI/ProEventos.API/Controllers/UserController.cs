@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProEventos.API.Extensions;
+using ProEventos.API.Helpers;
 using ProEventos.Application.DTO;
 using ProEventos.Application.Services.Interfaces;
 using System;
@@ -21,12 +22,16 @@ namespace ProEventos.API.Controllers
         #region DI Injected
         private readonly IUserService _userService;
         private readonly ITokenService _tokenService;
+        private readonly IUtility _utility;
+        private readonly string _destiny = "Profile";
 
         public UserController(IUserService userService,
-                              ITokenService tokenService)
+                              ITokenService tokenService,
+                              IUtility utility)
         {
             _userService = userService;
             _tokenService = tokenService;
+            _utility = utility;
         }
         #endregion
 
@@ -51,7 +56,7 @@ namespace ProEventos.API.Controllers
         }
         #endregion
 
-        // REGISTER & LOGIN - User
+        // ADD - User
         #region POST Methods - Controller
         [AllowAnonymous]
         [HttpPost("Register")]
@@ -105,6 +110,30 @@ namespace ProEventos.API.Controllers
 
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
                     $"Erro no servidor, estamos cuidando disso. Tente novamente mais tarde. Erro {e.Message}"); ;
+            }
+        }
+
+        [HttpPost("upload-image")]
+        public async Task<IActionResult> UploadImg()
+        {
+            try
+            {
+                var user = await _userService.GetUserByUserNameAsync(User.GetUserName());
+                if (user == null) return NoContent();
+
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    _utility.DeleteImg(user.ImageURL, _destiny);
+                    user.ImageURL = await _utility.SaveImg(file, _destiny);
+                }
+                var userReturn = await _userService.UpdateAccount(user);
+
+                return Ok(userReturn);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar realizar upload de foto do usuário. Erro {e.Message}");
             }
         }
         #endregion

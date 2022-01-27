@@ -106,7 +106,7 @@ namespace ProEventosAPI.Controllers
                 var speaker = await _speakerService.GetSpeakerByUserIdAsync(User.GetUserId());
                 if (speaker == null) return Unauthorized();
 
-                var _socialMedia = await _socialMediaService.SaveByEvent(speaker.Id, models);
+                var _socialMedia = await _socialMediaService.SaveBySpeaker(speaker.Id, models);
                 if (_socialMedia == null) return NoContent();
 
                 return Ok(_socialMedia);

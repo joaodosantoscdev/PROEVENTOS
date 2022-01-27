@@ -41,6 +41,7 @@ import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { ProfileDetailsComponent } from './components/user/profile/profile-details/profile-details.component';
+import { SpeakersListComponent } from './components/speakers/speakers-list/speakers-list.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -51,6 +52,7 @@ defineLocale('pt-br', ptBrLocale);
     EventListComponent,
     EventDetailsComponent,
     SpeakersComponent,
+    SpeakersListComponent,
     NavComponent,
     TitleComponent,
     ContactComponent,

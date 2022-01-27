@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { UserUpdate } from '@app/models/identity/userUpdate';
 import { UserService } from '@app/services/user.service';
+import { environment } from '@environments/environment';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -30,6 +31,12 @@ export class ProfileComponent implements OnInit {
 
   public setFormValue(user: UserUpdate): void {
     this.user = user;
+    if (this.user.imageURL) {
+      this.imageURL = environment.apiURL + `Resources/Profile/${this.user.imageURL}`;
+    } else {
+      this.imageURL = 'assets/img/profile-default.png';
+    }
+
   }
 
   onFileChange(ev: any): void {

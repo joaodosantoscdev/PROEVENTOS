@@ -31,7 +31,7 @@ export class SpeakerService {
     }
 
     return this.http
-      .get<Speaker[]>(this.baseUrl+'/all', {observe: 'response', params })
+      .get<Speaker[]>(this.baseUrl + '/all', {observe: 'response', params })
       .pipe(
         take(1),
         map((response) => {

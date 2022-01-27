@@ -51,13 +51,15 @@ namespace ProEventos.Persistence.Repository
 
         public async Task<SocialMedia> GetSpeakersSocialMediaByIdsAsync(int speakerId, int id)
         {
+
             IQueryable<SocialMedia> query = _context.SocialMedias;
 
             query = query.AsNoTracking()
-                         .Where(sm => sm.SpeakerId == speakerId &&
-                                      sm.Id == id);
+                         .Where(rs => rs.SpeakerId == speakerId &&
+                                          rs.Id == id);
 
             return await query.FirstOrDefaultAsync();
+
         }
     }
 }

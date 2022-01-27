@@ -96,7 +96,7 @@ namespace ProEventos.Application.Services
         {
             try
             {
-                var _socialMedia = await _socialMediaRepository.GetAllByEventIdAsync(speakerId);
+                var _socialMedia = await _socialMediaRepository.GetAllBySpeakerIdsAsync(speakerId);
                 if (_socialMedia == null) return null;
 
                 foreach (var model in models)
@@ -118,7 +118,7 @@ namespace ProEventos.Application.Services
                     }
                 }
 
-                var socialMediaResult = await _socialMediaRepository.GetAllByEventIdAsync(speakerId);
+                var socialMediaResult = await _socialMediaRepository.GetAllBySpeakerIdsAsync(speakerId);
 
                 return _mapper.Map<SocialMediaDTO[]>(socialMediaResult);
             }
@@ -155,9 +155,9 @@ namespace ProEventos.Application.Services
                 var socialMedia = await _socialMediaRepository.GetSpeakersSocialMediaByIdsAsync(speakerId, socialMediaId);
                 if (socialMedia == null) throw new Exception("Rede Social para Delete por Palestrante essa ação, Lote não encontrado!");
 
-                _socialMediaRepository.Delete(socialMedia);
-
+                _socialMediaRepository.Delete<SocialMedia>(socialMedia);
                 return await _socialMediaRepository.SaveChangesAsync();
+
             }
             catch (Exception e)
             {
@@ -190,7 +190,7 @@ namespace ProEventos.Application.Services
         {
             try
             {
-                var socialMedias = await _socialMediaRepository.GetAllByEventIdAsync(speakerId);
+                var socialMedias = await _socialMediaRepository.GetAllBySpeakerIdsAsync(speakerId);
                 if (socialMedias == null) return null;
 
                 var result = _mapper.Map<SocialMediaDTO[]>(socialMedias);
@@ -226,7 +226,7 @@ namespace ProEventos.Application.Services
         {
             try
             {
-                var socialMedias = await _socialMediaRepository.GetEventsSocialMediaByIdsAsync(speakerId, socialMediaId);
+                var socialMedias = await _socialMediaRepository.GetSpeakersSocialMediaByIdsAsync(speakerId, socialMediaId);
                 if (socialMedias == null) return null;
 
                 var result = _mapper.Map<SocialMediaDTO>(socialMedias);

@@ -14,6 +14,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
 
 import { AuthGuard } from './guard/auth.guard';
 import { HomeComponent } from './home/home.component';
+import { SpeakersListComponent } from './components/speakers/speakers-list/speakers-list.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -41,7 +42,12 @@ const routes: Routes = [
           { path: 'list', component: EventListComponent }
         ]
       },
-      { path: 'speakers', component: SpeakersComponent },
+      { path: 'speakers', redirectTo: 'speakers/list' },
+      { path: 'speakers', component: SpeakersComponent,
+      children: [
+          { path: 'list', component: SpeakersListComponent },
+        ]
+      },
       { path: 'contacts', component: ContactComponent },
       { path: 'dashboard', component: DashboardComponent }
     ]

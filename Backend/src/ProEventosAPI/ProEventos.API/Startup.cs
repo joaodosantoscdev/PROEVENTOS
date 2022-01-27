@@ -10,6 +10,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ProEventos.API.Helpers;
 using ProEventos.Application.Services;
 using ProEventos.Application.Services.Interfaces;
 using ProEventos.Domain.Identity;
@@ -84,7 +85,7 @@ namespace ProEventosAPI
             services.AddScoped<ISpeakerService, SpeakerService>();
             services.AddScoped<ISocialMediaService, SocialMediaService>();
 
-
+            services.AddScoped<IUtility, GeneralUtility>();
 
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IGeneralRepository, GeneralRepository>();

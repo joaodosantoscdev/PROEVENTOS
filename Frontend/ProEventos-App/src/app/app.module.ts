@@ -16,6 +16,7 @@ import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -39,6 +40,7 @@ import { DateFormatPipe } from './helpers/DateFormat.pipe';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+import { ProfileDetailsComponent } from './components/user/profile/profile-details/profile-details.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -54,6 +56,7 @@ defineLocale('pt-br', ptBrLocale);
     ContactComponent,
     DashboardComponent,
     ProfileComponent,
+    ProfileDetailsComponent,
     DateFormatPipe,
     UserComponent,
     LoginComponent,
@@ -71,6 +74,7 @@ defineLocale('pt-br', ptBrLocale);
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    TabsModule.forRoot(),
     ModalModule.forRoot(),
     ToastrModule.forRoot({
         timeOut: 2800,

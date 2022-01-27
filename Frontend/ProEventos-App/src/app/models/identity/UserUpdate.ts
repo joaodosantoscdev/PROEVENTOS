@@ -9,4 +9,5 @@ export class UserUpdate {
   description: string;
   password: string;
   token: string;
+  imageURL: string;
 }

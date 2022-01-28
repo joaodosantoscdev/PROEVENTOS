@@ -3,7 +3,7 @@ import { Speaker } from './Speaker';
 export interface SocialMedia {
   id: number;
   name: string;
-  uRL: string;
+  url: string;
   eventId?: number;
   event: Event;
   speakerId?: number;

@@ -1,0 +1,23 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+  <div class="form-group col">
+    <label for="">Mini Currículo</label><div class="alert alert-light alert-button alert-dismissible fade show mt-1" role="alert">
+      Aqui você pode adicionar um resumo dos seu <b class="text-primary">currículo</b> para página de Palestrantes.
+    </div>
+    <textarea rows="5"
+    type="text"
+    formControlName="cv"
+    class="form-control"
+    [ngClass]="{ 'is-invalid': f.cv.errors && f.cv.touched }">
+    </textarea>
+    <small class="form-text mt-1" [ngClass]="colorDescription">{{formOutputResult}}</small>
+    <div class="d-flex mt-2">
+      <button (click)="resetForm" class="btn btn-outline-danger mr-auto border">
+        Cancelar Alteração
+      </button>
+      <button class="btn btn-success" type="submit">
+        <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+        Salvar Alteração
+      </button>
+    </div>
+  </div>
+</form>

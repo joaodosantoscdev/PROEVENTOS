@@ -1,22 +1,22 @@
 <div class="card rounded shadow-sm p-3">
   <div class="d-flex">
     <div class="flex-fill">
-      <div class="input-group mb-2">
+      <div class="input-group mb-2 col-md">
         <div class="input-group-prepend">
           <div class="input-group-text pr-3" for="">Filtro :</div>
         </div>
         <input
         type="text"
         class="form-control"
-        placeholder="Buscar por Tema ou Local"
+        placeholder="Buscar por Nome ou Descrição"
         (input)="filterSpeakers($event.target)"
         />
       </div>
     </div>
       <div>
         <a class="d-flex btn btn-outline-primary" routerLink="/events/details">
-          <i class="fa fa-plus-circle my-1"></i>
-          <b class="ml-1 d-none d-sm-block">Novo</b>
+          <b class="mr-1 d-none d-sm-block" (click)="filterSpeakers($event.target)">Buscar</b>
+          <i class="fa fa-search my-1"></i>
         </a>
       </div>
   </div>
@@ -34,7 +34,7 @@
           <div class="h4 text-center mb-3"><b>@</b> {{speaker.user.userName}}</div>
           <div class="h7 text-bold text-center pb-1"><b>Nome: </b>{{speaker.user.firstName}}</div>
           <div class="h7 pb-2">
-            <div class="text-center">{{speaker.user.description}}</div>
+            <div class="text-muted text-center">{{speaker.cv}}</div>
           </div>
         </div>
         <ul class="list-group list-group-flush">

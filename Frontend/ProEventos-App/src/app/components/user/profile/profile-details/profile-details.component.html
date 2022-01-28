@@ -1,8 +1,5 @@
 <form [formGroup]="form" (submit)="onSubmit()" class="mt-2">
   <div class="form-row">
-    <div class="form-group col-12">
-      <h3 class="border-bottom">Detalhes</h3>
-    </div>
     <div class="form-group col">
       <label>Título</label>
       <select class="form-control"
@@ -90,6 +87,9 @@
     </div>
     <div class="form-group col-12">
       <label>Descrição</label>
+      <div class="alert alert-light alert-button alert-dismissible fade show mt-1" role="alert">
+        Essa é a <b class="text-primary">descrição</b> que outros usuários irão ver no seu perfil.
+      </div>
       <textarea
       rows="3"
       type="text"
@@ -109,7 +109,9 @@
   </div>
   <div>
     <h3 class="border-bottom">Mudar Senha</h3>
-    <p>Caso necessite alterar sua <b class="text-primary">senha</b>, preencha os campos abaixo:</p>
+    <div class="alert alert-light alert-button alert-dismissible fade show mt-1" role="alert">
+      Caso necessite alterar sua <b class="text-primary">senha</b>, preencha os campos abaixo.
+    </div>
   </div>
   <div class="form-row">
     <div class="form-group col-sm">

@@ -25,7 +25,6 @@ constructor(private http: HttpClient) { }
   }
 
   public saveSocialMedia(origin: string, id: number, socialMedias: SocialMedia[]): Observable<SocialMedia[]> {
-    debugger;
     let url =
       id === 0
       ? `${this.baseURL}/${origin}`

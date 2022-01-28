@@ -112,7 +112,7 @@
               Cancelar Alteração
             </button>
             <button class="btn btn-success" [disabled]="!form.valid || !this.form.touched"
-            (click)="saveEvent()">
+              (click)="saveEvent()">
               <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
               Salvar Evento
             </button>
@@ -130,101 +130,115 @@
             <i class="fas fa-money-bill-wave"></i>
           </h2>
         </div>
-        <div class="alert alert-light alert-button alert-dismissible fade show mt-1" role="alert">Clique em <b class="text-primary">Lote</b> para adicionar um novo campo em Lotes
+        <div class="alert alert-light alert-button alert-dismissible fade show mt-1" role="alert">Clique em <b  class="text-primary">Lote</b> para adicionar um novo campo em Lotes
         </div>
         <div class="form-row p-1">
-          <div class="col">
+          <div  iv class="col">
             <div formArrayName ="parts" *ngFor="let part of parts.controls; let i=index">
-              <fieldset [formGroupName]="i" class="form-group">
-                <legend class="d-flex justify-content-between capitalize">
-                  {{returnTitlePart(parts.get(i + '.name').value)}}
-                  <button
-                  (click)="removeParts(template, i)"
-                  class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex mb-2"
+                <fieldset [formGroupName]="i" class="form-group">
+                  <legend class="d-flex justify-content-between capitalize">
+                    {{returnTitlePart(parts.get(i + '.name').value)}}
+                    <button
+                    (click)="removeParts(template, i)"
+                    class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex mb-2"
                     tooltip="Excluir Lote"
                     [adaptivePosition]="false"
                     [delay]="500"
                     placement="left">
-                  <i class="fa fa-window-close my-1"></i>
-                  <b class="ml-1 d-none d-sm-block">Excluir</b>
-                </button>
-              </legend>
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label>Nome</label>
-                  <input
-                  [ngClass]="cssValidator(parts.get(i+'.name'))"
-                  type="text"
-                  class="form-control"
-                  formControlName="name"
-                  placeholder="Lote">
+                    <i class="fa fa-window-close my-1"></i>
+                    <b class="ml-1 d-none d-sm-block">Excluir</b>
+                  </button>
+                </legend>
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label>Nome</label>
+                    <input
+                    [ngClass]="cssValidator(parts.get(i+'.name'))"
+                    type="text"
+                    class="form-control"
+                    formControlName="name"
+                    placeholder="Lote">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>Quantidade</label>
+                    <input
+                    [ngClass]="cssValidator(parts.get(i+'.quantity'))"
+                    type="text"
+                    class="form-control"
+                    formControlName="quantity"
+                    placeholder="000">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>Preço</label>
+                    <input
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
+                    [ngClass]="cssValidator(parts.get(i+'.price'))"
+                    type="text"
+                    currencyMask
+                    class="form-control"
+                    formControlName="price"
+                    placeholder="R$ 0,00">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>Data de Início</label>
+                    <input
+                    [ngClass]="cssValidator(parts.get(i+'.dateInitial'))"
+                    type="text"
+                    class="form-control"
+                    formControlName="dateInitial"
+                    placeholder="DD/MM/YYYY"
+                    bsDatepicker
+                    [bsConfig]="bsConfigParts"
+                    value="{{ event.dateEvent | date : 'dd/MM/yyyy' : '-0600' }}">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>Data de Fim</label>
+                    <input
+                    [ngClass]="cssValidator(parts.get(i+'.dateEnd'))"
+                    type="text"
+                    class="form-control"
+                    formControlName="dateEnd"
+                    placeholder="DD/MM/YYYY"
+                    bsDatepicker
+                    [bsConfig]="bsConfigParts"
+                    value="{{ event.dateEvent | date : 'dd/MM/yyyy' : '-0600' }}">
+                  </div>
                 </div>
-                <div class="form-group col-md-4">
-                  <label>Quantidade</label>
-                  <input
-                  [ngClass]="cssValidator(parts.get(i+'.quantity'))"
-                  type="text"
-                  class="form-control"
-                  formControlName="quantity"
-                  placeholder="000">
-                </div>
-                <div class="form-group col-md-4">
-                  <label>Preço</label>
-                  <input
-                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
-                  [ngClass]="cssValidator(parts.get(i+'.price'))"
-                  type="text"
-                  currencyMask
-                  class="form-control"
-                  formControlName="price"
-                  placeholder="R$ 0,00">
-                </div>
-                <div class="form-group col-md-4">
-                  <label>Data de Início</label>
-                  <input
-                  [ngClass]="cssValidator(parts.get(i+'.dateInitial'))"
-                  type="text"
-                  class="form-control"
-                  formControlName="dateInitial"
-                  placeholder="DD/MM/YYYY"
-                  bsDatepicker
-                  [bsConfig]="bsConfigParts"
-                  value="{{ event.dateEvent | date : 'dd/MM/yyyy' : '-0600' }}">
-                </div>
-                <div class="form-group col-md-4">
-                  <label>Data de Fim</label>
-                  <input
-                  [ngClass]="cssValidator(parts.get(i+'.dateEnd'))"
-                  type="text"
-                  class="form-control"
-                  formControlName="dateEnd"
-                  placeholder="DD/MM/YYYY"
-                  bsDatepicker
-                  [bsConfig]="bsConfigParts"
-                  value="{{ event.dateEvent | date : 'dd/MM/yyyy' : '-0600' }}">
-                </div>
-              </div>
-            </fieldset>
+              </fieldset>
+            </div>
           </div>
         </div>
+        <button (click)="addPart()" class="d-flex btn btn-outline-primary">
+          <i class="fa fa-plus-circle my-1"></i>
+          <b class="ml-1">Lote</b>
+        </button>
       </div>
-      <button (click)="addPart()" class="d-flex btn btn-outline-primary">
-        <i class="fa fa-plus-circle my-1"></i>
-        <b class="ml-1">Lote</b>
-      </button>
-    </div>
-    <div class="card-footer">
-      <div class="d-flex">
-        <button class="btn btn-outline-danger mr-auto border">
+      <div div class="card-footer">
+        <div class="d-flex">
+          <button class="btn btn-outline-danger mr-auto border">
           Cancelar Alteração
-        </button>
-        <button class="btn btn-success" [disabled]="!form.controls.parts.valid" (click)="saveParts()">
-          Salvar Lotes
-        </button>
+          </button>
+          <button class="btn btn-success" [disabled]="!form.controls.parts.valid" (click)="saveParts()">
+            Salvar Lotes
+          </button>
+        </div>
       </div>
     </div>
+    <div  [formGroup]="form" class="card rounded shadow-sm mt-3" *ngIf="editMode">
+      <div class="p-3">
+        <div class="d-flex border-bottom">
+          <h3 class="mr-auto">
+            Redes Sociais
+          </h3>
+          <h2>
+            <i class="fa fa-share-square"></i>
+          </h2>
+        </div>
+        <app-social-medias [eventId]="eventId"></app-social-medias>
+      </div>
     </div>
   </div>
+
   <div class="col-md-4" *ngIf="editMode">
     <div [formGroup]="form" class="card-evento-view shadow-sm">
       <div class="form-row">
@@ -232,10 +246,10 @@
           <input type="file" #file (change)="onFileChange($event)"  class="form-control is-invalid" placeholder="" style="display: none">
         </div>
       </div>
-      <div class="card profile-card-2">
-        <div class="card-img-block">
-          <img class="image rounded shadow-sm" [src]="imageURL" class="img-fluid" (click)="file.click()" alt="Card image cap"
-          tooltip="Upload de Nova Imagem" [adaptivePosition]="false" placement="bottom" />
+        <div class="card profile-card-2">
+          <div class="card-img-block">
+            <img class="image rounded shadow-sm" [src]="imageURL" class="img-fluid" (click)="file.click()" alt="Card image cap"
+            tooltip="Upload de Nova Imagem" [adaptivePosition]="false" placement="bottom" />
           <div class="card-footer"></div>
         </div>
         <div class="card-body pt-3">
@@ -254,7 +268,7 @@
           </p>
           <p class="card-text">
             <b>Capacidade: </b><br>
-             <small class="text-muted">{{event.capacity}} pessoas</small>
+            <small class="text-muted">{{event.capacity}} pessoas</small>
           </p>
           <div class="row">
             <div class="icon-block col-md-8 iconesSociais">
@@ -263,7 +277,7 @@
               </a>
             </div>
             <!--div class="col-md-4 d-flex justify-content-center">
-              <a href="#" class="btn btn-outline-primary">Participar</a>
+            <a href="#" class="btn btn-outline-primary">Participar</a>
             </div-->
           </div>
         </div>

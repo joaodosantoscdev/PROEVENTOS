@@ -33,18 +33,21 @@ export class SocialMediasComponent implements OnInit {
                private modalService: BsModalService) {}
 
   ngOnInit(): void {
-    if (this.eventId === 0) {
-      this.loadSocialMedia('speaker');
-    }
+    this.loadSocialMedia(this.eventId);
     this.validation();
   }
 
-  private loadSocialMedia(origin: string, id: number = 0): void {
+  private loadSocialMedia(id: number = 0): void {
+    let origin = 'speaker';
+
+    if (this.eventId !== 0) { origin = 'event'; }
+
     this.spinner.show();
     this.socialMediaService.getSocialMedia(origin, id).subscribe(
       (socialMediaResult: SocialMedia[]) => {
         socialMediaResult.forEach((socialMedia) => {
           this.socialMedias.push(this.createSocialMedia(socialMedia));
+          debugger;
         });
       },
       (error: any) => {
@@ -84,12 +87,12 @@ export class SocialMediasComponent implements OnInit {
     let origin = 'speakerId';
 
     if (this.eventId !== 0) { origin = 'event'; }
+
     if (this.formSM.controls.socialMedias.valid) {
       this.spinner.show();
       this.socialMediaService.saveSocialMedia(origin, this.eventId, this.formSM.value.socialMedias).subscribe(
         (socialMediaReturn: any) => {
           this.toastr.success('Redes Sociais salvas com sucesso!', 'Ok!');
-          debugger;
         },
         (error: any) => {
           this.toastr.error('Erro ao tentar salvar as redes sociais', 'Erro!');

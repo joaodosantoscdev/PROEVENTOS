@@ -1,4 +1,6 @@
-<p>Clique em <b class="text-primary">Rede Social</b> para adicionar e preencher novos meios de contato.</p>
+<div class="alert alert-light alert-button alert-dismissible fade show mt-1" role="alert">
+  Adicione abaixo as <b class="text-primary">Rede Sociais</b>.
+</div>
 <div class="form-row p-1">
   <div [formGroup]="formSM" class="col">
     <div formArrayName="socialMedias" *ngFor="let socialMedia of socialMedias.controls; let i=index">

@@ -1,0 +1,64 @@
+<p>Clique em <b class="text-primary">Rede Social</b> para adicionar e preencher novos meios de contato.</p>
+<div class="form-row p-1">
+  <div [formGroup]="formSM" class="col">
+    <div formArrayName="socialMedias" *ngFor="let socialMedia of socialMedias.controls; let i=index">
+      <fieldset [formGroupName]="i" class="form-group">
+        <legend class="d-flex justify-content-between capitalize">
+          {{ returnTitle(socialMedias.get(i+'.name').value) }}
+          <button class="btn btn-sm btn-warning mb-1" (click)="removeSocialMedias(template, i)"><b>Remove</b></button>
+        </legend>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Nome</label>
+            <select class="form-control" [ngClass]="cssValidator(socialMedias.get(i+'.name'))" formControlName="name">
+              <option value="">Selecione</option>
+              <option value="fab fa-youtube">Youtube</option>
+              <option value="fab fa-instagram">Instagram</option>
+              <option value="fab fa-facebook">Facebook</option>
+              <option value="fab fa-twitter">Twitter</option>
+              <option value="fab fa-google">Google</option>
+              <option value="fab fa-linkedin">Linkedin</option>
+              <option value="fab fa-pinterest">Pinterest</option>
+              <option value="fab fa-whatsapp">Whatsapp</option>
+              <option value="fab fa-telegram">Telegram</option>
+              <option value="fab fa-skype">Skype</option>
+              <option value="fab fa-vimeo">Vimeo</option>
+            </select>
+          </div>
+          <div class="form-group col-md-8">
+            <label>Link</label>
+            <input type="text" prefix="http://" mask="" [ngClass]="cssValidator(socialMedias.get(i+'.url'))"
+              formControlName="url" class="form-control" placeholder="URL">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <button (click)="addSocialMedia()" class="d-flex btn btn-outline-primary">
+      <i class="fa fa-plus-circle my-1"></i>
+      <b class="ml-1">Rede Social</b>
+    </button>
+  </div>
+</div>
+
+<div class="card-footer">
+  <div class="d-flex">
+    <button class="btn btn-outline-secondary mr-auto border">
+      Cancelar Alteração
+    </button>
+    <button
+    [disabled]="!formSM.controls.socialMedias.valid"
+    (click)="saveSocialMedia()"
+    class="btn btn-success">
+      Salvar Redes Sociais
+    </button>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar {{this.currentSocialMedia.name}}?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDeleteSocialMedia()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="declineDeleteSocialMedia()">Não</button>
+  </div>
+</ng-template>
+

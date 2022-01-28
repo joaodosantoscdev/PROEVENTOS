@@ -29,19 +29,20 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { EventListComponent } from './components/events/event-list/event-list.component';
 import { EventDetailsComponent } from './components/events/event-details/event-details.component';
+import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
+import { ProfileDetailsComponent } from './components/user/profile/profile-details/profile-details.component';
+import { SpeakersListComponent } from './components/speakers/speakers-list/speakers-list.component';
+import { SpeakersDetailsComponent } from './components/speakers/speakers-details/speakers-details.component';
 
 import { EventService } from './services/event.service';
 import { PartService } from './services/part.service';
 import { UserService } from './services/user.service';
 
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-
 import { DateFormatPipe } from './helpers/DateFormat.pipe';
-import { UserComponent } from './components/user/user.component';
-import { LoginComponent } from './components/user/login/login.component';
-import { RegistrationComponent } from './components/user/registration/registration.component';
-import { ProfileDetailsComponent } from './components/user/profile/profile-details/profile-details.component';
-import { SpeakersListComponent } from './components/speakers/speakers-list/speakers-list.component';
+import { SocialMediasComponent } from './components/social-medias/social-medias.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -53,6 +54,8 @@ defineLocale('pt-br', ptBrLocale);
     EventDetailsComponent,
     SpeakersComponent,
     SpeakersListComponent,
+    SpeakersDetailsComponent,
+    SocialMediasComponent,
     NavComponent,
     TitleComponent,
     ContactComponent,

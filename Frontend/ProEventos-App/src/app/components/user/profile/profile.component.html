@@ -1,4 +1,4 @@
-<app-title [routerRef]="'profile'" [title]="'Perfil'" [iconClass]="'fa fa-address-card'" [subtitle]="'Veja suas informações de cadastro aqui.'"></app-title>
+<app-title [routerRef]="'profile'" [title]="'Perfil:' + (isSpeaker ? ' Palestrante' : ' Participante')" [iconClass]="'fa fa-address-card'" [subtitle]="'Veja suas informações de cadastro aqui.'"></app-title>
 <div class="card rounded shadow-sm mb-3">
     <div class="row p-3">
       <div class="col-lg-3 pt-1">
@@ -47,17 +47,28 @@
               <ng-template tabHeading>
                 <i class="fa fa-address-card mr-2"></i><span>Perfil</span>
               </ng-template>
+              <div class="form-group col-12">
+                <h3 class="border-bottom">Detalhes{{isSpeaker ? ': Palestrante' : ''}}</h3>
+              </div>
               <app-profile-details (changeFormValue)="setFormValue($event)"></app-profile-details>
             </tab>
-            <tab *ngIf="isSpeaker">
+            <tab *ngIf="isSpeaker" class="border border-top-0 p-3">
               <ng-template tabHeading>
                 <i class="fa fa-user-graduate mr-2"></i><span>Palestrante</span>
               </ng-template>
+              <div class="form-group col-12">
+                <h3 class="border-bottom">Palestrante</h3>
+              </div>
+              <app-speakers-details></app-speakers-details>
             </tab>
-            <tab *ngIf="isSpeaker">
+            <tab *ngIf="isSpeaker" class="border border-top-0 p-3">
               <ng-template tabHeading>
                 <i class="fa fa-share-square mr-2"></i><span>Rede Sociais</span>
               </ng-template>
+              <div class="form-group col-12">
+                <h3 class="border-bottom">Redes Sociais: {{isSpeaker ? 'Palestrante' : ''}}</h3>
+              </div>
+              <app-social-medias></app-social-medias>
             </tab>
           </tabset>
       </div>

@@ -4,7 +4,7 @@ import { SocialMedia } from './SocialMedia';
 
 export interface Speaker {
   id: number;
-  cV: string;
+  cv: string;
   user: UserUpdate;
   socialMedias: SocialMedia[];
   speakerEvents: Event[];

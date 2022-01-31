@@ -47,7 +47,6 @@ export class SocialMediasComponent implements OnInit {
       (socialMediaResult: SocialMedia[]) => {
         socialMediaResult.forEach((socialMedia) => {
           this.socialMedias.push(this.createSocialMedia(socialMedia));
-          debugger;
         });
       },
       (error: any) => {

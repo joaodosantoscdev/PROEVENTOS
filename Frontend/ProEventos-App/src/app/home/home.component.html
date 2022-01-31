@@ -1,1 +1,101 @@
-<app-title [iconClass]="'fa fa-home'" [title]="'Home'" ></app-title>
+<app-title class="mb-0" [iconClass]="'fa fa-home'" [title]="'Home'" ></app-title>
+
+<div class="card rounded shadow-sm ">
+  <div class="carousel slide border-rounded mb-5">
+    <div class="carousel-inner">
+      <carousel [isAnimated]="true">
+        <slide>
+          <img src="assets/img/landslide-1.jpg" alt="first slide" style="display: block; width: auto;">
+        </slide>
+        <slide>
+          <img src="assets/img/landslide-2.jpg" alt="second slide" style="display: block; width: auto;">
+        </slide>
+        <slide>
+          <img src="assets/img/landslide-3.jpg" alt="third slide" style="display: block; width: auto;">
+        </slide>
+      </carousel>
+    </div>
+  </div>
+
+  <div class="container marketing mt-0">
+    <!-- Three columns of text below the carousel -->
+    <div class="d-flex justify-content-around row">
+      <div class="card shadow-sm col-lg-3 px-0">
+        <div class="card-header ">
+          <img class="rounded-circle d-block mx-auto" src="assets/img/userland-1.jpg" alt="user-partner" width="140" height="140">
+          <h2 class="text-center">Julia Souza</h2>
+        <h6 class="text-muted font-italic">Fullstack Developer/SEO | Participante </h6>
+      </div>
+        <p class="p-3">Com a parceiria que tenho com a Pro Eventos todos os meus objetivos foram mais fáceis de se realizar, consegui me organizar e ministrar meus eventos com muita <b class="text-primary" >segurança</b> e <b class="text-primary">agilidade</b>. Sem contar nas oportunidades de <b class="text-primary">networking</b> e <b class="text-primary">visibilidade</b> que deram aos meus projetos.</p>
+        <p class="align-self-start ml-3" ><a class="btn btn-secondary" href="#" role="button"><b>Detalhes &raquo;</b></a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="card shadow-sm col-lg-3 px-0">
+        <div class="card-header ">
+          <img class="rounded-circle d-block mx-auto" src="assets/img/userland-2.jpg" alt="user-partner" width="140" height="140">
+          <h2 class="text-center d-inline-block">Eduardo Olivera</h2>
+        <h6 class="text-muted font-italic text-center">Software Engineer | CEO </h6>
+      </div>
+        <p class="p-3">Com a parceiria que tenho com a Pro Eventos todos os meus objetivos foram mais fáceis de se realizar, consegui me organizar e ministrar meus eventos com muita <b class="text-primary" >segurança</b> e <b class="text-primary">agilidade</b>. Sem contar nas oportunidades de <b class="text-primary">networking</b> e <b class="text-primary">visibilidade</b> que deram aos meus projetos.</p>
+        <p class="align-self-start ml-3" ><a class="btn btn-secondary" href="#" role="button"><b>Detalhes &raquo;</b></a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="card shadow-sm col-lg-3 px-0">
+        <div class="card-header ">
+          <img class="rounded-circle d-block mx-auto" src="assets/img/userland-3.jpg" alt="user-partner" width="140" height="140">
+          <h2>Matheus Dellavi</h2>
+        <h6 class="text-muted font-italic">Tech Leader/Content Creator | Palestrante </h6>
+      </div>
+        <p class="p-3">Com a parceiria que tenho com a Pro Eventos todos os meus objetivos foram mais fáceis de se realizar, consegui me organizar e ministrar meus eventos com muita <b class="text-primary" >segurança</b> e <b class="text-primary">agilidade</b>. Sem contar nas oportunidades de <b class="text-primary">networking</b> e <b class="text-primary">visibilidade</b> que deram aos meus projetos.</p>
+        <p class="align-self-start ml-3" ><a class="btn btn-secondary" href="#" role="button"><b>Detalhes &raquo;</b></a></p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+      <div class="col-md-5">
+        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+      <div class="col-md-5 order-md-1">
+        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette mb-5">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+      <div class="col-md-5">
+        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+      </div>
+    </div>
+</div>
+
+  <!-- /END THE FEATURETTES -->
+
+</div><!-- /.container -->
+
+
+<!-- FOOTER -->
+<footer class=" footer container">
+  <p class="float-right"><a href="#">Back to top</a></p>
+  <p>&copy; 2017-2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</footer>

@@ -6,7 +6,10 @@
     <div formArrayName="socialMedias" *ngFor="let socialMedia of socialMedias.controls; let i=index">
       <fieldset [formGroupName]="i" class="form-group">
         <legend class="d-flex justify-content-between capitalize">
-          {{ returnTitle(socialMedias.get(i+'.name').value) }}
+          <div class="allign-items-start">
+            <i class="{{ returnTitle(socialMedias.get(i+'.name').value) }}"></i>
+            <span class="">{{returnTitle(socialMedias.get(i+'.name').value.replace('fab fa-',' ')) }}</span>
+          </div>
           <button class="btn btn-sm btn-warning mb-1" (click)="removeSocialMedias(template, i)"><b>Remove</b></button>
         </legend>
         <div class="row">

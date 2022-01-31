@@ -57,7 +57,6 @@ export class SpeakersDetailsComponent implements OnInit {
             this.toastr.success('Mini currículo atualizado', 'Sucesso');
             this.speaker.cv = speakerResult.cv;
             this.loadSpeaker();
-            debugger;
           },
           (error: any) => {
             this.toastr.error('Erro ao atualizar sua descrição como palestrante', 'Erro!');

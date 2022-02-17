@@ -27,7 +27,9 @@
     </ul>
     <div *ngIf="(userService.currentUser$ | async) === null" class="navbar-nav mr-3 d-xs-none d-none d-md-block">
       <a class="btn btn-light mr-2 border" routerLink="/user/login" >Entrar</a>
-      <a class="btn btn-warning" routerLink="/user/registration" >Cadastrar-se</a>
+        <a class="btn btn-warning" routerLink="/user/registration" >
+          <span>Cadastrar-se <i class="fa fa-sign-in-alt" style="font-size: 16px"></i></span>
+      </a>
     </div>
     <ul *ngIf="(userService.currentUser$ | async) !== null" class="navbar-nav mr-5">
       <li class="nav-item dropdown dropdown-menu-left" dropdown  *ngIf="(userService.currentUser$ | async) as user">

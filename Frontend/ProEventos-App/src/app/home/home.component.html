@@ -61,7 +61,7 @@
           <h2 class="featurette-heading my-2">Contate nosso suporte <span class="text-muted">de qualquer lugar.</span></h2>
           <p class="lead px-0">Temos uma equipe de suporte especializada para poder auxiliar você com problemas, dúvidas e até imformações sobre nossos serviços.</p>
         </div>
-        <button class="btn btn-outline-primary btn-lg col-sm-4 mb-sm-3 align-self-center">Contato</button>
+        <button class="btn btn-outline-primary btn-lg col-sm-4 mb-sm-3 align-self-center" routerLink="../contacts">Contato</button>
       </div>
       <div class="col-lg-5 pr-auto ml-auto d-none d-lg-block m-0 p-0">
         <img class="featurette-image img-fluid rounded" src="assets/img/placeholder-1.jpg" alt="Generic placeholder image">
@@ -73,25 +73,24 @@
           <h2 class="featurette-heading my-2">Veja aqui os eventos <span class="text-primary">perto de você.</span></h2>
           <p class="lead px-0">Participe do que realmente gosta! Clique aqui e veja a nossa seleção de eventos baseados na sua localização e preferência.</p>
         </div>
-        <button class="btn btn-outline-light btn-lg col-sm-4 mb-sm-3 align-self-center">Eventos</button>
+        <button class="btn btn-outline-light btn-lg col-sm-4 mb-sm-3 align-self-center" routerLink="/events/list">Eventos</button>
       </div>
       <div class="col-lg-5 pr-auto ml-auto d-none d-lg-block m-0 p-0">
         <img class="featurette-image img-fluid rounded" src="assets/img/placeholder-2.jpg" alt="Generic placeholder image">
       </div>
     </div>
-    <div class="row featurette mb-5 justify-content-center">
+    <div class="row featurette my-5 justify-content-center">
       <div class="col-md-7">
-        <h4 class="featurette-heading">Efetue seu login <a class="text-muted">aqui.</a></h4>
+        <h4 class="featurette-heading my-3">Efetue seu login
+          <span><a class="text-muted text-decoration-none" routerLink="/user/login">aqui <i class="fa fa-sign-in-alt" style="font-size: 46px;"></i></a></span>
+        </h4>
         <hr class="color-secondary col-sm-6" />
-        <p class="lead">É novo por aqui e gostou da plataforma, clique <a class="text-muted" href="">aqui</a> para ir até a área de cadastro e começar a utilizar nossos serviços.</p>
+        <p class="lead">É novo por aqui e gostou da plataforma, clique
+          <a class="text-muted" routerLink="/user/registration">aqui</a>
+          para ir até a área de cadastro e começar a utilizar nossos serviços.
+        </p>
       </div>
     </div>
 </div>
   <!-- /END THE FEATURETTES -->
 </div><!-- /.container -->
-
-<!-- FOOTER -->
-<footer class=" footer container">
-  <p class="float-right"><a href="#">Back to top</a></p>
-  <p>&copy; 2022 Developed by joaodosantoscdev, Dev. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-</footer>

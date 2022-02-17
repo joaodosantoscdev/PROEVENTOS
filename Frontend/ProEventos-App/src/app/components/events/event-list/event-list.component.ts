@@ -124,6 +124,10 @@ export class EventListComponent implements OnInit {
     location.assign(`events/details/${id}`);
   }
 
+  navigateNewEvent(): void {
+    location.assign('events/details');
+  }
+
   public showImages(imageURL: string): string {
     return (imageURL !== '')
     ? `${environment.apiURL}Resources/Images/${imageURL}`

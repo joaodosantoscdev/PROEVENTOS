@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { PaginatedResult, Pagination } from '@app/models/pagination';
 import { environment } from '@environments/environment';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -120,7 +120,8 @@ export class EventListComponent implements OnInit {
   }
 
   detailsEvent(id: number): void {
-    this.router.navigate([`events/details/${id}`]);
+    // this.router.navigate([`events/details/${id}`]);
+    location.assign(`events/details/${id}`);
   }
 
   public showImages(imageURL: string): string {

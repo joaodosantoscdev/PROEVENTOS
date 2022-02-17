@@ -26,4 +26,8 @@ export class NavComponent implements OnInit {
     return this.router.url !== '/user/login';
   }
 
+  navigateEvents(): void {
+    // this.router.navigate([`events/list`]);
+    location.assign(`events/list`);
+  }
 }

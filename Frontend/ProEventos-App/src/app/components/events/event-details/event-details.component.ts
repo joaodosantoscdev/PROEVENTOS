@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 
 import { Event } from '@app/models/Event';
 import { Part } from '@app/models/Part';
@@ -13,6 +13,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-event-details',
@@ -113,8 +114,8 @@ export class EventDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadEvent();
     this.validation();
+    this.loadEvent();
   }
 
   public validation(): void {

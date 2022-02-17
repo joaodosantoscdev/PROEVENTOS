@@ -41,7 +41,7 @@
       </tr>
     </thead>
     <tbody *ngIf="events && events.length">
-      <tr  *ngFor="let event of events" (click)="detailsEvent(event.id)" style="cursor: pointer;">
+      <tr  *ngFor="let event of events" style="cursor: pointer;">
         <td class="d-none d-sm-table-cell">
           <img [collapse]="showImg" [isAnimated]="true" [style.width.px]="widthImg" [style.margin.px]="marginImg" [src]="showImages(event.imageURL)"  alt="imagem" />
         </td>
@@ -53,7 +53,7 @@
         <td class="d-none d-md-table-cell">{{event.parts[0]?.name | uppercase }}</td>
         <td>
           <div class="d-flex">
-            <button class="btn btn-info btn-md mr-2" tooltip="Editar">
+            <button class="btn btn-info btn-md mr-2" tooltip="Editar" (click)="detailsEvent(event.id)">
               <div class="d-flex">
                 <i class="fa fa-edit my-1 mr-lg-1"></i>
                 <b class="d-none d-lg-block">Editar</b>

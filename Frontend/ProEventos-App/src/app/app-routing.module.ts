@@ -21,25 +21,18 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'user', redirectTo: 'user/profile' },
   {
-    path: 'user', component: UserComponent,
-    children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'registration', component: RegistrationComponent }
-    ]
-  },
-  {
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
       { path: 'user/profile', component: ProfileComponent },
-      { path: 'events', redirectTo: 'events/list'},
+      { path: 'events', redirectTo: 'events/list' },
       {
         path: 'events', component: EventsComponent,
         children: [
           { path: 'details/:id', component: EventDetailsComponent },
           { path: 'details', component: EventDetailsComponent },
-          { path: 'list', component: EventListComponent }
+          { path: 'list', component: EventListComponent },
         ]
       },
       { path: 'speakers', redirectTo: 'speakers/list' },
@@ -52,11 +45,18 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent }
     ]
   },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+    {
+    path: 'user', component: UserComponent,
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'registration', component: RegistrationComponent }
+    ]
+  },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy', enableTracing: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

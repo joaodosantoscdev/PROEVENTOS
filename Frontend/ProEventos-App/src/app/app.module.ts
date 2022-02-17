@@ -44,6 +44,7 @@ import { UserService } from './services/user.service';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { DateFormatPipe } from './helpers/DateFormat.pipe';
 import { SocialMediasComponent } from './components/social-medias/social-medias.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -59,6 +60,7 @@ defineLocale('pt-br', ptBrLocale);
     SocialMediasComponent,
     NavComponent,
     TitleComponent,
+    FooterComponent,
     ContactComponent,
     DashboardComponent,
     ProfileComponent,

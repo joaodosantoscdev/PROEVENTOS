@@ -14,14 +14,14 @@
       </div>
     </div>
       <div>
-        <a class="d-flex btn btn-outline-primary" routerLink="/events/details">
+        <a class="d-flex btn btn-outline-primary">
           <b class="mr-1 d-none d-sm-block" (click)="filterSpeakers($event.target)">Buscar</b>
           <i class="fa fa-search my-1"></i>
         </a>
       </div>
   </div>
   <div *ngIf="speakers && speakers.length" class="row mt-2">
-    <div class="col-md-4 mb-4 d-flex align-items-stretch" *ngFor="let speaker of speakers">
+    <div class="col-md-4 mb-4 d-flex align-items-stretch" *ngFor="let speaker of speakers;let i = index">
       <div class="card d-flex">
         <div class="d-flex align-self-center pt-3">
           <img class="rounded-circle"
@@ -31,8 +31,13 @@
             height="120"/>
         </div>
         <div class="card-body">
-          <div class="h4 text-center mb-3"><b>@</b> {{speaker.user.userName}}</div>
+          <div class="h4 text-center mb-3"><b>@</b>{{speaker.user.userName}}</div>
           <div class="h7 text-bold text-center pb-1"><b>Nome: </b>{{speaker.user.firstName}}</div>
+            <div class="text-bold text-center p-2">
+              <a href="https://{{speaker.socialMedias[0]?.url}}" target="_blank"><i class="btn btn-link text-decoration-none btn-lg {{speaker.socialMedias[0]?.name}} mx-3"></i></a>
+              <a href="https://{{speaker.socialMedias[1]?.url}}" target="_blank"><i class="btn btn-link text-decoration-none btn-lg {{speaker.socialMedias[1]?.name}} mx-3"></i></a>
+              <a *ngIf="speaker.socialMedias[2]?.name" href="https://{{speaker.socialMedias[2]?.url}}" target="_blank"><i class="btn btn-link text-decoration-none btn-lg {{speaker.socialMedias[2]?.name}} mx-3"></i></a>
+            </div>
           <div class="h7 pb-2">
             <div class="text-muted text-center">{{speaker.cv}}</div>
           </div>

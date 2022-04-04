@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@app/models/identity/User';
-import { UserUpdate } from '@app/models/identity/userUpdate';
+import { UserUpdate } from '@app/models/identity/UserUpdate';
 import { environment } from '@environments/environment';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';

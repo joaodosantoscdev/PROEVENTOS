@@ -3,7 +3,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 
 import { ValidatorField } from '@app/helpers/ValidatorField';
-import { UserUpdate } from '@app/models/identity/userUpdate';
+import { UserUpdate } from '@app/models/identity/UserUpdate';
 import { SpeakerService } from '@app/services/speaker.service';
 import { UserService } from '@app/services/user.service';
 

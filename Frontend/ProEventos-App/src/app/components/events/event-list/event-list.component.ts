@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { PaginatedResult, Pagination } from '@app/models/pagination';
+import { PaginatedResult, Pagination } from '@app/models/Pagination';
 import { environment } from '@environments/environment';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 

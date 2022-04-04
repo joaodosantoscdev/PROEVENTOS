@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '@environments/environment';
-import { PaginatedResult } from '@app/models/pagination';
+import { PaginatedResult } from '@app/models/Pagination';
 import { Speaker } from '@app/models/Speaker';
 
 

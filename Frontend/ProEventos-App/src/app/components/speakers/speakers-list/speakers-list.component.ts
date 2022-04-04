@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PaginatedResult, Pagination } from '@app/models/pagination';
+import { PaginatedResult, Pagination } from '@app/models/Pagination';
 import { Speaker } from '@app/models/Speaker';
 import { SocialMedia } from '@app/models/SocialMedia';
 import { SocialMediaService } from '@app/services/socialMedia.service';

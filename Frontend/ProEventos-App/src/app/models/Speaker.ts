@@ -1,5 +1,5 @@
 import { Event } from './Event';
-import { UserUpdate } from './identity/userUpdate';
+import { UserUpdate } from './identity/UserUpdate';
 import { SocialMedia } from './SocialMedia';
 
 export interface Speaker {

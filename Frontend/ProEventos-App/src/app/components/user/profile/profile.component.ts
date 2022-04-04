@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserUpdate } from '@app/models/identity/userUpdate';
+import { UserUpdate } from '@app/models/identity/UserUpdate';
 import { UserService } from '@app/services/user.service';
 import { environment } from '@environments/environment';
 
